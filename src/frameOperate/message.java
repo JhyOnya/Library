@@ -1,6 +1,7 @@
+
 package frameOperate;
 
-public class msg
+public class message
 {
 
 }
