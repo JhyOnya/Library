@@ -4,7 +4,6 @@ import java.io.File;
 import jxl.Sheet;
 import jxl.Workbook;
 //读取csv文件，从第五行开始读取课程总表中信息
-不是这个工程的文件我只是告诉你怎么更新=-=我刚刚做的就是下载最新版，这个buttonlog是我刚刚上传的
 public class readFile {
 	static String sourceFile ="课。程总表.xls"; //源文件
     public static void main(String[]args) 
