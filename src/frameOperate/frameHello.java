@@ -11,11 +11,13 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class frameHello extends JFrame {
 	int x, y;
 	static frameHello hello;
-	static String imgDir = "E:\\_Practice\\JavaEE\\OJ\\src\\tea\\judge\\img\\";
+	static String imgDir = "E:\\Code\\Java\\Library\\src\\Message\\picUI\\";
 	private JPanel contentPane;
 
 	/**
@@ -31,7 +33,6 @@ public class frameHello extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} catch (Throwable e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -72,7 +73,7 @@ public class frameHello extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
-		ImageIcon iconBg = new ImageIcon(imgDir + "bground.jpg");
+		ImageIcon iconBg = new ImageIcon(imgDir + "picHello.jpg");
 		iconBg.setImage(iconBg.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH));
 
 		JEditorPane editorHello = new JEditorPane();
@@ -80,9 +81,9 @@ public class frameHello extends JFrame {
 		editorHello.setEnabled(false);
 		editorHello.setFont(new Font("»ªÎÄÁ¥Êé", Font.PLAIN, 50));
 		editorHello.setOpaque(false);
-		editorHello.setDisabledTextColor(Color.black);
+		editorHello.setDisabledTextColor(UIManager.getColor("Button.light"));
 		editorHello.setText("\u6B22\u8FCE\u4F7F\u7528\u56FE\u4E66\u9986\u7CFB\u7EDF\uFF01");
-		editorHello.setBounds(10, 82, 532, 48);
+		editorHello.setBounds(24, 83, 532, 48);
 		contentPane.add(editorHello);
 		ImageIcon iconStart = new ImageIcon(imgDir + "buttonHello.png");
 
