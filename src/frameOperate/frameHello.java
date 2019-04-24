@@ -12,8 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class frameHello extends JFrame
-{
+public class frameHello extends JFrame {
 	int x, y;
 	static frameHello hello;
 	static String imgDir = "E:\\_Practice\\JavaEE\\OJ\\src\\tea\\judge\\img\\";
@@ -22,45 +21,32 @@ public class frameHello extends JFrame
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
 					hello = new frameHello();
 					hello.setUndecorated(true);// 去除边框
 					hello.setVisible(true);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
-				}
-				catch (Throwable e)
-				{
+				} catch (Throwable e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		Thread timeController = new Thread()
-		{
-			public void run()
-			{
-				try
-				{
+		Thread timeController = new Thread() {
+			public void run() {
+				try {
 					Thread.sleep(3000); // 限制运行时间
 					hello.dispose();
 
 //					mainFrame = new JudgeUIMain();
-					mainUIFrame.mainFrame = new mainUIFrame();
-					mainUIFrame.mainFrame.setUndecorated(true);// 去除边框
-					mainUIFrame.mainFrame.setVisible(true);
-				}
-				catch (InterruptedException e)
-				{
+					mainFrame.mframe = new mainFrame();
+					mainFrame.mframe.setUndecorated(true);// 去除边框
+					mainFrame.mframe.setVisible(true);
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -71,8 +57,7 @@ public class frameHello extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public frameHello()
-	{
+	public frameHello() {
 		setBackground(new Color(240, 240, 240));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(532, 263);
@@ -96,8 +81,8 @@ public class frameHello extends JFrame
 		editorHello.setFont(new Font("华文隶书", Font.PLAIN, 50));
 		editorHello.setOpaque(false);
 		editorHello.setDisabledTextColor(Color.black);
-		editorHello.setText("\u6B22\u8FCE\u4F7F\u7528\u7A0B\u5E8F\u8BC4\u5224\u7CFB\u7EDF\uFF01");
-		editorHello.setBounds(0, 82, 556, 48);
+		editorHello.setText("\u6B22\u8FCE\u4F7F\u7528\u56FE\u4E66\u9986\u7CFB\u7EDF\uFF01");
+		editorHello.setBounds(10, 82, 532, 48);
 		contentPane.add(editorHello);
 		ImageIcon iconStart = new ImageIcon(imgDir + "buttonHello.png");
 

@@ -1,7 +1,9 @@
 package frameOperate;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 public class mainFrame extends JFrame
 {
-
+	static mainFrame mframe ;
 	private JPanel contentPane;
 
 	/**
@@ -23,8 +25,8 @@ public class mainFrame extends JFrame
 			{
 				try
 				{
-					mainFrame frame = new mainFrame();
-					frame.setVisible(true);
+					 mframe = new mainFrame();
+					mframe.setVisible(true);
 				}
 				catch (Exception e)
 				{
@@ -39,8 +41,13 @@ public class mainFrame extends JFrame
 	 */
 	public mainFrame()
 	{
+		this.setSize(450, 300);
+		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension framesize = this.getSize();
+		int fx = (int) screensize.getWidth() / 2 - (int) framesize.getWidth() / 2;
+		int fy = (int) screensize.getHeight() / 2 - (int) framesize.getHeight() / 2;
+		this.setLocation(fx, fy);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
