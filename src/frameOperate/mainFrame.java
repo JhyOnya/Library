@@ -41,23 +41,23 @@ import java.awt.event.ItemEvent;
 public class mainFrame extends JFrame {
 
 	private int x, y;
-	String[] rooms;
+	static String[] rooms;
 	static String imgDir = "E:\\Code\\Java\\Library\\src\\Message\\picUI\\";
-	private List<JButton> seatBts;
+	static JButton[]  seatBts;
 
 	static mainFrame mframe;
 	private JPanel contentPane;
 	private static JTextField preTime;
 	private JTextField textField;
-	private JComboBox chooseClass;
+	static JComboBox chooseClass;
 	private JTextField textField_1;
-	private JTextField nameText;
+	static JTextField nameText;
 	private JButton btnNewButton;
 	private JButton buttonG;
 	private JButton buttonY;
 	private JButton buttonR;
-	JButton loginBt;
-	private JTextField textPlease;
+	static JButton loginBt;
+	static JTextField textPlease;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,19 +73,8 @@ public class mainFrame extends JFrame {
 		});
 	}
 
-	public void init() {
-		rooms = new String[Seat.roomNum];
-		for (int i = 0; i < Seat.roomNum; i++) {
-			rooms[i] = (i + 1) + "";
-		}
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public mainFrame() {
-		Seat.init();
-		init();
+		msgChange.init();
 		this.setSize(677, 459);
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension framesize = this.getSize();
@@ -103,7 +92,7 @@ public class mainFrame extends JFrame {
 		chooseClass.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					refreshRoom(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1);
+					msgChange.refreshRoom(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1);
 				}
 			}
 		});
@@ -158,10 +147,10 @@ public class mainFrame extends JFrame {
 				else {
 					stuMsg = Seat.isVIP(nameText.getText());
 					if (stuMsg[0] == -1) {
-						login();
+						msgChange.login();
 					} else {
 						// vip，指定座位
-						Seat.selectSeat(stuMsg[0], stuMsg[1]);
+						msgChange.chooseSeat(stuMsg[0], stuMsg[1], "尊敬的VIP用户 " + nameText.getText());
 					}
 				}
 			}
@@ -236,69 +225,21 @@ public class mainFrame extends JFrame {
 		textPlease.setBounds(291, 68, 76, 21);
 		textPlease.setVisible(false);
 		contentPane.add(textPlease);
-
-		seatBts = new ArrayList<JButton>();
+		
+		seatBts=new JButton[5];
 		for (int i = 0; i < Seat.seatNum; i++) {
-			seatBts.add(new JButton(i + 1 + ""));
-			seatBts.get(i).addActionListener(new ActionListener() {
+			seatBts[i]=new JButton(i + 1 + "");
+			seatBts[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					chooseSeat(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1,
-							Integer.parseInt(((JButton) e.getSource()).getText()) - 1);
+					System.out.println((JButton) e.getSource());
+					msgChange.chooseSeat(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1,
+							Integer.parseInt(((JButton) e.getSource()).getText()) - 1, nameText.getText());
 				}
 			});
-			seatBts.get(i).setEnabled(false);
-			panel.add(seatBts.get(i));
+			seatBts[i].setEnabled(false);
+			panel.add(seatBts[i]);
 		}
 		new Thread(new preTime()).start();
-	}
-
-	public void login() {
-		loginBt.setBounds(410, 37, 86, 23);
-		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLog.png");
-		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
-				Image.SCALE_SMOOTH));
-		loginBt.setIcon(iconStart);
-		loginBt.setContentAreaFilled(false);
-		loginBt.setEnabled(false);
-		nameText.setEnabled(false);
-		textPlease.setVisible(true);
-		chooseClass.setEnabled(true);
-		for (int i = 0; i < Seat.seatNum; i++) {
-			seatBts.get(i).setEnabled(true);
-		}
-	}
-
-	public void chooseSeat(int room, int seat) {
-		System.out.println(room);
-		System.out.println(seat);
-		logout();
-	}
-
-	public void refreshRoom(int room) {
-		for (int i = 0; i < Seat.seatNum; i++) {
-			seatBts.get(i).setEnabled(true);
-		}
-		List<Integer> preSeats = Seat.getroomSeat(room);
-		for (int seat : preSeats) {
-			seatBts.get(seat).setEnabled(true);
-		}
-	}
-
-	public void logout() {
-		chooseClass.setSelectedIndex(0);
-		loginBt.setBounds(410, 37, 86, 23);
-		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLogin.png");
-		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
-				Image.SCALE_SMOOTH));
-		loginBt.setIcon(iconStart);
-		loginBt.setContentAreaFilled(true);
-		loginBt.setEnabled(true);
-		nameText.setEnabled(true);
-		textPlease.setVisible(false);
-		chooseClass.setEnabled(false);
-		for (int i = 0; i < Seat.seatNum; i++) {
-			seatBts.get(i).setEnabled(false);
-		}
 	}
 
 	public static void refreshTime(String str) {

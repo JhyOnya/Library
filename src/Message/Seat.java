@@ -2,6 +2,7 @@ package Message;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,30 +11,33 @@ public class Seat {
 	// 教室和座位从0开始，显示从1开始，UI方进行更正即可；教室数量目前设为5；座位数量目前设为5
 	public static int roomNum = 5;// 教室数量
 	public static int seatNum = 5;// 座位数量
-	public static Map<Integer, Map<Integer, String>> vip;// <1,<3,lih>>,教室1座位3是lih的vip座位
-	public static Map<Integer, List<Integer>> seats;// <1,[2,3]>，教室1中,座位2和3被占用
+	public static List<String> vipNames;// vip列表
+	public static Map<Integer, Map<Integer, String>> seats;// 当前座位信息<教室，<座位，姓名>>
+	public static Map<Integer, Map<Integer, String>> vipSeats;// <1,<3,lih>>,教室1座位3是lih的vip座位
 
 	// 选择座位。参数：教室+座位号
-	public static void selectSeat(int room, int seat) {
+	public static void selectSeat(int room, int seat, String name) {
 		if (seats == null) {
-			seats = new TreeMap<Integer, List<Integer>>();
+			seats = new TreeMap<Integer, Map<Integer, String>>();
 		}
 		if (seats.get(room) == null) {
-			seats.put(room, new ArrayList<>());
+			seats.put(room, new TreeMap<Integer, String>());
 		}
-		seats.get(room).add(seat);
+		seats.get(room).put(seat, name);
 	}
 
 	// 新建VIP。参数：教室+座位号+姓名
-	public static void addVIP(int room, int seatNum, String name) {
-		if (vip == null) {
-			vip = new TreeMap<Integer, Map<Integer, String>>();
+	public static void addVIP(int room, int seat, String name) {
+		if (vipSeats == null) {
+			vipNames=new LinkedList<String>();
+			vipSeats = new TreeMap<Integer, Map<Integer, String>>();
 		}
-		vip.put(room, new TreeMap<Integer, String>() {
+		vipSeats.put(room, new TreeMap<Integer, String>() {
 			{
-				put(seatNum, name);
+				put(seat, name);
 			}
 		});
+		vipNames.add(name);
 	}
 
 	// 是否是VIP。参数：教室+座位号+姓名
@@ -51,10 +55,11 @@ public class Seat {
 	}
 
 	// 获取当前房间座位情况，在list中的是不可使用的（vip+有人）
-	public static List<Integer> getroomSeat(int room) {
+	public static Map<Integer, String> getroomSeat(int room) {
 		return seats.get(room);
 	}
 
+	//待完成，计算某同学距离下课时间
 	public static String getSeatTime(String name) {
 		return ("10:20:34");
 	}
@@ -63,16 +68,17 @@ public class Seat {
 	public static void main(String[] args) {
 		init();
 	}
+
 	// 测试用
 	public static void init() {
-		selectSeat(1, 2);
-		selectSeat(1, 3);
-		selectSeat(2, 3);
+		selectSeat(1, 2, "d");
+		selectSeat(1, 3, "e");
+		selectSeat(2, 3, "f");
 		System.out.println(seats);
 
-		addVIP(1, 2, "a");
-		addVIP(13, 3, "b");
-		addVIP(2, 3, "c");
-		System.out.println(vip);
+		addVIP(1, 2, "va");
+		addVIP(13, 3, "vb");
+		addVIP(2, 3, "vc");
+		System.out.println(vipSeats);
 	}
 }
