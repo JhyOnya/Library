@@ -1,6 +1,7 @@
 package frameOperate;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -37,13 +38,20 @@ import java.beans.PropertyChangeEvent;
 import java.beans.VetoableChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JTable;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import net.miginfocom.swing.MigLayout;
+import java.awt.GridLayout;
 
-public class mainFrame extends JFrame {
+public class mainFrame extends JFrame
+{
 
 	private int x, y;
 	static String[] rooms;
 	static String imgDir = "E:\\Code\\Java\\Library\\src\\Message\\picUI\\";
-	static JButton[]  seatBts;
 
 	static mainFrame mframe;
 	private JPanel contentPane;
@@ -58,24 +66,32 @@ public class mainFrame extends JFrame {
 	private JButton buttonR;
 	static JButton loginBt;
 	static JTextField textPlease;
+	static JPanel panel;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
 					mframe = new mainFrame();
 					mframe.setUndecorated(true);// 去除边框
 					mframe.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
 		});
 	}
 
-	public mainFrame() {
+	public mainFrame()
+	{
 		msgChange.init();
-		this.setSize(677, 459);
+		this.setSize(865, 626);
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension framesize = this.getSize();
 		int fx = (int) screensize.getWidth() / 2 - (int) framesize.getWidth() / 2;
@@ -89,9 +105,12 @@ public class mainFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		chooseClass = new JComboBox(rooms);
-		chooseClass.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
+		chooseClass.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent e)
+			{
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{
 					msgChange.refreshRoom(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1);
 				}
 			}
@@ -101,9 +120,11 @@ public class mainFrame extends JFrame {
 		contentPane.add(chooseClass);
 
 		nameText = new JTextField();
-		nameText.addFocusListener(new FocusAdapter() {
+		nameText.addFocusListener(new FocusAdapter()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e)
+			{
 				if (nameText.getText().equals("请输入姓名进行登录！"))
 					nameText.setText("");
 			}
@@ -121,7 +142,7 @@ public class mainFrame extends JFrame {
 		contentPane.add(preTime);
 
 		textField = new JTextField();
-		textField.setBackground(new Color(204, 204, 255));
+		textField.setOpaque(false);
 		textField.setText("\u59D3\u540D\uFF1A");
 		textField.setEditable(false);
 		textField.setColumns(10);
@@ -130,7 +151,7 @@ public class mainFrame extends JFrame {
 		contentPane.add(textField);
 
 		textField_1 = new JTextField();
-		textField_1.setBackground(new Color(204, 204, 255));
+		textField_1.setOpaque(false);
 		textField_1.setText("\u9009\u62E9\u6559\u5BA4\uFF1A");
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
@@ -139,16 +160,22 @@ public class mainFrame extends JFrame {
 		contentPane.add(textField_1);
 
 		loginBt = new JButton();
-		loginBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		loginBt.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				int[] stuMsg;
 				if (nameText.getText().isEmpty() || nameText.getText().equals("请输入姓名进行登录！"))
 					nameText.setText("请输入姓名进行登录！");
-				else {
+				else
+				{
 					stuMsg = Seat.isVIP(nameText.getText());
-					if (stuMsg[0] == -1) {
+					if (stuMsg[0] == -1)
+					{
 						msgChange.login();
-					} else {
+					}
+					else
+					{
 						// vip，指定座位
 						msgChange.chooseSeat(stuMsg[0], stuMsg[1], "尊敬的VIP用户 " + nameText.getText());
 					}
@@ -164,15 +191,11 @@ public class mainFrame extends JFrame {
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 204, 255));
-		panel.setBounds(10, 89, 641, 321);
+		 panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(10, 89, 834, 488);
 		contentPane.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		btnNewButton = new JButton("New button");
-		btnNewButton.setEnabled(false);
-		panel.add(btnNewButton);
+		panel.setLayout(new GridLayout(6, 5, 13, 13));
 
 		JButton buttonG = new JButton();
 		buttonG.setBounds(getWidth() - 63, 0, 21, 21);
@@ -188,14 +211,18 @@ public class mainFrame extends JFrame {
 		iconY.setImage(iconY.getImage().getScaledInstance(buttonY.getBounds().width, buttonY.getBounds().height,
 				Image.SCALE_SMOOTH));
 		buttonY.setIcon(iconY);
-		buttonY.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
+		buttonY.addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
 				x = e.getX();
 				y = e.getY();
 			}
 		});
-		buttonY.addMouseMotionListener(new MouseMotionAdapter() {
-			public void mouseDragged(MouseEvent e) {
+		buttonY.addMouseMotionListener(new MouseMotionAdapter()
+		{
+			public void mouseDragged(MouseEvent e)
+			{
 				int left = mframe.getLocation().x;
 				int top = mframe.getLocation().y;
 				mframe.setLocation(left + e.getX() - x, top + e.getY() - y);
@@ -209,8 +236,10 @@ public class mainFrame extends JFrame {
 		iconR.setImage(iconR.getImage().getScaledInstance(buttonR.getBounds().width, buttonR.getBounds().height,
 				Image.SCALE_SMOOTH));
 		buttonR.setIcon(iconR);
-		buttonR.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		buttonR.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				System.exit(0);
 			}
 		});
@@ -218,31 +247,33 @@ public class mainFrame extends JFrame {
 
 		textPlease = new JTextField();
 		textPlease.setText("\u8BF7\u9009\u62E9\u5EA7\u4F4D\uFF01");
+		textPlease.setOpaque(false);
 		textPlease.setEditable(false);
 		textPlease.setColumns(10);
 		textPlease.setBorder(null);
-		textPlease.setBackground(new Color(204, 204, 255));
 		textPlease.setBounds(291, 68, 76, 21);
 		textPlease.setVisible(false);
 		contentPane.add(textPlease);
-		
-		seatBts=new JButton[5];
-		for (int i = 0; i < Seat.seatNum; i++) {
-			seatBts[i]=new JButton(i + 1 + "");
-			seatBts[i].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					System.out.println((JButton) e.getSource());
+
+		for (int i = 0; i < Seat.seatNum; i++)
+		{
+			JButton seatBts = new JButton(i + 1 + "");
+			seatBts.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
 					msgChange.chooseSeat(Integer.parseInt(chooseClass.getSelectedItem() + "") - 1,
 							Integer.parseInt(((JButton) e.getSource()).getText()) - 1, nameText.getText());
 				}
 			});
-			seatBts[i].setEnabled(false);
-			panel.add(seatBts[i]);
+			seatBts.setEnabled(false);
+			panel.add(seatBts);
 		}
 		new Thread(new preTime()).start();
 	}
 
-	public static void refreshTime(String str) {
+	public static void refreshTime(String str)
+	{
 		preTime.setText(str);
 	}
 }
