@@ -3,7 +3,7 @@ package excelOperate;
 import java.io.File;
 import jxl.Sheet;
 import jxl.Workbook;
-//读取csv文件，从第五行开始读取课程总表中信息
+//读取csv文件，从第五行开始读取课程总表中信息111
 public class readFile {
 	static String sourceFile ="课。程总表.xls"; //源文件
     public static void main(String[]args) 
@@ -25,7 +25,7 @@ public class readFile {
                   String name =sheet.getCell(0, z).getContents();
                   String sex =sheet.getCell(1, z).getContents();
                   String ID =sheet.getCell(2, z).getContents();
-                  System.out.println(name+","+sex+","+ID);
+                  System.out.println(name+","+sex+",");//+ID
               } 
        }
               catch(Exception e)
