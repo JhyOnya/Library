@@ -37,11 +37,8 @@ public class msgChange
 		mainFrame.loginBt.setEnabled(false);
 		mainFrame.nameText.setEnabled(false);
 		mainFrame.textPlease.setVisible(true);
-		mainFrame.chooseClass.setEnabled(true);
 		for (int i = 0; i < Seat.seatNum; i++)
-		{
 			((JButton) mainFrame.panel.getComponent(i)).setEnabled(true);
-		}
 		refreshRoom(0);
 	}
 
@@ -57,16 +54,17 @@ public class msgChange
 		mainFrame.loginBt.setEnabled(true);
 		mainFrame.nameText.setEnabled(true);
 		mainFrame.textPlease.setVisible(false);
-		mainFrame.chooseClass.setEnabled(false);
 		for (int i = 0; i < Seat.seatNum; i++)
-		{
 			((JButton) mainFrame.panel.getComponent(i)).setEnabled(false);
-		}
 		mainFrame.nameText.setText("");
 	}
 
 	public static void chooseSeat(int room, int seat, String name)
 	{
+		if(name.isEmpty()) {
+			getErrOrder("请登录后再选座！");
+			return;
+		}
 		int r = room + 1;
 		int s = seat + 1;
 		((JButton) mainFrame.panel.getComponent(seat)).setEnabled(false);
@@ -80,6 +78,10 @@ public class msgChange
 	public static void getOrder(String qus)
 	{
 		JOptionPane.showMessageDialog(null, qus, "选座成功", JOptionPane.INFORMATION_MESSAGE);
+	}
+	public static void getErrOrder(String qus)
+	{
+		JOptionPane.showMessageDialog(null, qus, "操作失败！", JOptionPane.DEFAULT_OPTION);
 	}
 
 	public static void refreshRoom(int room)

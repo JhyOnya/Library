@@ -6,7 +6,6 @@ import java.util.Date;
 public class preTime implements Runnable {
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		SimpleDateFormat dtFmt = new SimpleDateFormat("yyyyÄêMMÔÂddÈÕ HH:mm:ss");
 		while (true) {
 			mainFrame.refreshTime(dtFmt.format(new Date()));
