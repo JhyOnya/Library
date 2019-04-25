@@ -83,7 +83,7 @@ public class frameHello extends JFrame {
 		editorHello.setOpaque(false);
 		editorHello.setDisabledTextColor(UIManager.getColor("Button.light"));
 		editorHello.setText("\u6B22\u8FCE\u4F7F\u7528\u56FE\u4E66\u9986\u7CFB\u7EDF\uFF01");
-		editorHello.setBounds(24, 83, 532, 48);
+		editorHello.setBounds(22, 103, 532, 48);
 		contentPane.add(editorHello);
 		ImageIcon iconStart = new ImageIcon(imgDir + "buttonHello.png");
 
