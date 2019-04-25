@@ -166,7 +166,6 @@ public class mainFrame extends JFrame {
 		});
 		loginBt.setBounds(545, 37, 86, 23);
 		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLogin.png");
-//		ImageIcon iconStart = new ImageIcon(mainFrame.class.getResource("icons/buttonLogin.png"));
 		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
 				Image.SCALE_SMOOTH));
 		loginBt.setIcon(iconStart);
@@ -289,6 +288,13 @@ public class mainFrame extends JFrame {
 
 		for (int i = 0; i < Seat.seatNum; i++) {
 			JButton seatBts = new JButton(i + 1 + "");
+			ImageIcon iconSeat = new ImageIcon(imgDir + "buttonSeat.png");
+			iconSeat.setImage(iconSeat.getImage().getScaledInstance(160, 70,
+					Image.SCALE_DEFAULT ));
+			seatBts.setHorizontalTextPosition(JButton.CENTER); 
+			seatBts.setIcon(iconSeat);
+			seatBts.setContentAreaFilled(false);
+			seatBts.setBorderPainted(false);
 			seatBts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int chsBtnNum = msgChange.searchComponentByName(panel, ((JButton) e.getSource()).getText());
