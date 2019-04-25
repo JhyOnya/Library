@@ -39,12 +39,8 @@ import java.beans.VetoableChangeListener;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JTable;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import net.miginfocom.swing.MigLayout;
 import java.awt.GridLayout;
+import javax.swing.JRadioButton;
 
 public class mainFrame extends JFrame
 {
@@ -116,7 +112,7 @@ public class mainFrame extends JFrame
 			}
 		});
 		chooseClass.setEnabled(false);
-		chooseClass.setBounds(598, 37, 41, 21);
+		chooseClass.setBounds(669, 37, 41, 21);
 		contentPane.add(chooseClass);
 
 		nameText = new JTextField();
@@ -129,7 +125,7 @@ public class mainFrame extends JFrame
 					nameText.setText("");
 			}
 		});
-		nameText.setBounds(237, 37, 163, 21);
+		nameText.setBounds(308, 37, 163, 21);
 		contentPane.add(nameText);
 		nameText.setColumns(10);
 
@@ -138,7 +134,7 @@ public class mainFrame extends JFrame
 		preTime.setEditable(false);
 		preTime.setColumns(10);
 		preTime.setBorder(null);
-		preTime.setBounds(10, 37, 170, 21);
+		preTime.setBounds(82, 37, 170, 21);
 		contentPane.add(preTime);
 
 		textField = new JTextField();
@@ -147,7 +143,7 @@ public class mainFrame extends JFrame
 		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBorder(null);
-		textField.setBounds(197, 37, 66, 21);
+		textField.setBounds(268, 37, 66, 21);
 		contentPane.add(textField);
 
 		textField_1 = new JTextField();
@@ -156,7 +152,7 @@ public class mainFrame extends JFrame
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		textField_1.setBorder(null);
-		textField_1.setBounds(541, 37, 66, 21);
+		textField_1.setBounds(612, 37, 66, 21);
 		contentPane.add(textField_1);
 
 		loginBt = new JButton();
@@ -182,7 +178,7 @@ public class mainFrame extends JFrame
 				}
 			}
 		});
-		loginBt.setBounds(410, 37, 86, 23);
+		loginBt.setBounds(481, 37, 86, 23);
 		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLogin.png");
 		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
 				Image.SCALE_SMOOTH));
@@ -251,9 +247,17 @@ public class mainFrame extends JFrame
 		textPlease.setEditable(false);
 		textPlease.setColumns(10);
 		textPlease.setBorder(null);
-		textPlease.setBounds(291, 68, 76, 21);
+		textPlease.setBounds(388, 68, 76, 21);
 		textPlease.setVisible(false);
 		contentPane.add(textPlease);
+		
+		JRadioButton radioButton = new JRadioButton("\u5F53\u524D\u65F6\u95F4");
+		radioButton.setBounds(10, 36, 76, 23);
+		contentPane.add(radioButton);
+		
+		JRadioButton radioButton_1 = new JRadioButton("\u9009\u5B9A\u65F6\u95F4");
+		radioButton_1.setBounds(10, 60, 76, 23);
+		contentPane.add(radioButton_1);
 
 		for (int i = 0; i < Seat.seatNum; i++)
 		{
