@@ -68,7 +68,6 @@ public class mainFrame extends JFrame {
 	private JButton chsBtn;
 
 	public static void main(String[] args) {
-		imgDir = imgDir + "\\src\\Message\\picUI\\";
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -83,6 +82,7 @@ public class mainFrame extends JFrame {
 	}
 
 	public mainFrame() {
+		imgDir = imgDir + "\\src\\Message\\picUI\\";
 		this.setSize(865, 626);
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension framesize = this.getSize();

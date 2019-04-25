@@ -14,6 +14,7 @@ public class preTime implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			msgChange.refresh();
 		}
 	}
 }

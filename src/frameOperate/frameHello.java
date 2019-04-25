@@ -17,7 +17,7 @@ import javax.swing.UIManager;
 public class frameHello extends JFrame {
 	int x, y;
 	static frameHello hello;
-	static String imgDir = "E:\\Code\\Java\\Library\\src\\Message\\picUI\\";
+	static String imgDir = System.getProperty("user.dir");
 	private JPanel contentPane;
 
 	/**
@@ -27,6 +27,7 @@ public class frameHello extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					imgDir = imgDir + "\\src\\Message\\picUI\\";
 					hello = new frameHello();
 					hello.setUndecorated(true);// 去除边框
 					hello.setVisible(true);
@@ -43,7 +44,6 @@ public class frameHello extends JFrame {
 					Thread.sleep(3000); // 限制运行时间
 					hello.dispose();
 
-//					mainFrame = new JudgeUIMain();
 					mainFrame.mframe = new mainFrame();
 					mainFrame.mframe.setUndecorated(true);// 去除边框
 					mainFrame.mframe.setVisible(true);
