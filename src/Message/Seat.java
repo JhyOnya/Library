@@ -53,7 +53,7 @@ public class Seat {
 		return seats.get(room);
 	}
 
-	// 待完成，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
+	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
 	public static String getSeatTime(String name, String askTime) {
 		return (askTime.substring(askTime.indexOf(" ")));
 	}
@@ -67,7 +67,7 @@ public class Seat {
 		init("2019年04月25日 10:31:28");
 	}
 
-	// 测试用
+	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
 
 		vipNames = new LinkedList<String>();
