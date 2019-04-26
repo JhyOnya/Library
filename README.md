@@ -1,5 +1,7 @@
 ### 置顶_问题
 #### Seat类getSeatTime函数需要完善_姜弘扬
+<br> 给定一个vip姓名和一个时间，计算vip还有多久下课
+<br> getSeatTime(String name, String askTime)
 <br> 输入String时间，"2019年04月25日 10:31:28"
 <br> 输出String剩余时间，输出什么我的“剩余时间：”后面就加什么
 #### 学生信息表的设定_王秀月
@@ -15,10 +17,7 @@
 <br> 参数说明：
 <br> (String类型)time时 没有课的VIP : UsingVIP
 <br> (String类型)time时  有课的VIP  : EmptyVIP
-#### 剩余时间设定Seat.getSeatTime需要写好_姜弘扬
-<br> 给定一个vip姓名和一个时间，计算vip还有多久下课
-<br> getSeatTime(String name, String askTime)
-<br> 参数：vip姓名，查询时间。返回String类型时间（返回什么我输出什么）
+
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
 
 ### 0426关于进度_姜弘扬
