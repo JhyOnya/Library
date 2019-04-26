@@ -16,6 +16,7 @@
 <br> (String类型)time时 没有课的VIP : UsingVIP
 <br> (String类型)time时  有课的VIP  : EmptyVIP
 #### 剩余时间设定Seat.getSeatTime需要写好_姜弘扬
+<br> 给定一个vip姓名和一个时间，计算vip还有多久下课
 <br> getSeatTime(String name, String askTime)
 <br> 参数：vip姓名，查询时间。返回String类型时间（返回什么我输出什么）
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
