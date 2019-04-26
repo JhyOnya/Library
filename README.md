@@ -5,7 +5,33 @@
 #### 学生信息表的设定_王秀月
 <br> 关于学生信息 -给学生类信息设定为[学号 姓名 ] 其中学号设定为9位数字，前7位为班级号eg.1730704，后2位为学生在班级内的序号eg.01；173070401为金融学1730704班1号。 
 <br> 建议学生相关操作，使用学生学号作为参数，查询其班级、课表、是否为vip等信息。
+#### vip设定Seat.init_姜弘扬
+
+<br> 只需要把vip信息用下面两个函数添加即可，参数：int 教室，int 座位，String 姓名。无返回
+<br> //添加time时没有课的VIP
+<br> addUsingVIP(1, 6, "va");
+<br> //添加time时有课的VIP
+<br> addEmptyVIP(2, 4, "vc");
+<br> 参数说明：
+<br> (String类型)time时 没有课的VIP : UsingVIP
+<br> (String类型)time时  有课的VIP  : EmptyVIP
+#### 剩余时间设定Seat.getSeatTime需要写好_姜弘扬
+<br> getSeatTime(String name, String askTime)
+<br> 参数：vip姓名，查询时间。返回String类型时间（返回什么我输出什么）
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
+
+### 0426关于进度_姜弘扬
+<br> 删除Message类
+<br> 为了导出jar包时图片仍能显示，对图片存放进行修改
+<br> Seat类我放到package frameOperate中了
+<br> Course类感觉用不到了
+<br> 交互函数框架给好了，我的界面交互只需要Seat.init
+<br> 用户添加的操作我都写完了，我现在只需要完善Seat.init函数，和Seat.getSeatTime函数
+
+### 0426修改Seat_姜弘扬
+<br> 修改seat类的部分函数
+<br> Seat类的Map<Integer, Map<Integer, String>> seats
+<br> 只存储当前时间下的座位信息，选定时间下的座位信息只查询vip的信息，即vipSeats
 
 ### 0425关于进度_姜弘扬
 UI界面部分功能基本完成，优化也已结束
