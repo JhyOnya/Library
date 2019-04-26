@@ -27,7 +27,7 @@ public class frameHello extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					imgDir = imgDir + "\\src\\Message\\picUI\\";
+					imgDir = imgDir + "\\picUI\\";
 					hello = new frameHello();
 					hello.setUndecorated(true);// È¥³ý±ß¿ò
 					hello.setVisible(true);

@@ -10,9 +10,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import Message.Seat;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -82,7 +79,8 @@ public class mainFrame extends JFrame {
 	}
 
 	public mainFrame() {
-		imgDir = imgDir + "\\src\\Message\\picUI\\";
+		rooms = Seat.rooms;
+		imgDir = imgDir + "\\picUI\\";
 		this.setSize(865, 626);
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension framesize = this.getSize();
@@ -104,7 +102,6 @@ public class mainFrame extends JFrame {
 		preTime.setColumns(10);
 		preTime.setBorder(null);
 		preTime.setBounds(82, 36, 148, 21);
-		msgChange.init(preTime.getText());
 		contentPane.add(preTime);
 		chooseRoom = new JComboBox(rooms);
 		chooseRoom.addItemListener(new ItemListener() {
@@ -117,7 +114,7 @@ public class mainFrame extends JFrame {
 		chooseRoom.setBounds(725, 37, 86, 21);
 		contentPane.add(chooseRoom);
 
-		nameText = new JTextField();
+		nameText = new JTextField(imgDir);
 		nameText.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -146,32 +143,6 @@ public class mainFrame extends JFrame {
 		textField_1.setBorder(null);
 		textField_1.setBounds(668, 37, 66, 21);
 		contentPane.add(textField_1);
-
-		loginBt = new JButton();
-		loginBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int[] stuMsg;
-				if (nameText.getText().isEmpty() || nameText.getText().equals("请输入姓名进行登录！"))
-					nameText.setText("请输入姓名进行登录！");
-				else {
-					stuMsg = Seat.isVIP(nameText.getText());
-					if (stuMsg[0] == -1) {
-						msgChange.login();
-					} else {
-						// vip，指定座位
-						msgChange.chooseSeat(stuMsg[0], stuMsg[1], "尊敬的VIP用户 " + nameText.getText());
-					}
-				}
-			}
-		});
-		loginBt.setBounds(545, 37, 86, 23);
-		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLogin.png");
-		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
-				Image.SCALE_SMOOTH));
-		loginBt.setIcon(iconStart);
-		loginBt.setContentAreaFilled(false);
-		loginBt.setBorderPainted(false);
-		contentPane.add(loginBt);
 
 		panel = new JPanel();
 		panel.setOpaque(false);
@@ -238,7 +209,6 @@ public class mainFrame extends JFrame {
 					textMsg.setText("请选择座位！");
 					chsBtn.setEnabled(false);
 					msgChange.preOrChs = true;
-					msgChange.init(preTimeRBt.getText());
 					msgChange.refresh();
 				}
 			}
@@ -254,7 +224,6 @@ public class mainFrame extends JFrame {
 					textMsg.setText("仅能查看指定时间，禁止提前占座！");
 					chsBtn.setEnabled(true);
 					msgChange.preOrChs = false;
-					msgChange.init(chsTime.getText());
 					msgChange.refresh();
 				}
 			}
@@ -279,7 +248,6 @@ public class mainFrame extends JFrame {
 		chsBtn.setEnabled(false);
 		chsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				msgChange.init(chsTime.getText());
 				msgChange.refresh();
 			}
 		});
@@ -289,20 +257,50 @@ public class mainFrame extends JFrame {
 		for (int i = 0; i < Seat.seatNum; i++) {
 			JButton seatBts = new JButton(i + 1 + "");
 			ImageIcon iconSeat = new ImageIcon(imgDir + "buttonSeat.png");
-			iconSeat.setImage(iconSeat.getImage().getScaledInstance(160, 70,
-					Image.SCALE_DEFAULT ));
-			seatBts.setHorizontalTextPosition(JButton.CENTER); 
+			iconSeat.setImage(iconSeat.getImage().getScaledInstance(160, 70, Image.SCALE_DEFAULT));
+			seatBts.setHorizontalTextPosition(JButton.CENTER);
 			seatBts.setIcon(iconSeat);
 			seatBts.setContentAreaFilled(false);
 			seatBts.setBorderPainted(false);
 			seatBts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int chsBtnNum = msgChange.searchComponentByName(panel, ((JButton) e.getSource()).getText());
+					String btnName = ((JButton) e.getSource()).getText();
+					if (btnName.indexOf(".") != -1)
+						btnName = btnName.substring(0, btnName.indexOf("."));
+					int chsBtnNum = Integer.parseInt(btnName) - 1;
 					msgChange.chooseSeat(chooseRoom.getSelectedIndex(), chsBtnNum, nameText.getText());
+//					int chsBtnNum = msgChange.searchComponentByName(panel, ((JButton) e.getSource()).getText());
+//					msgChange.chooseSeat(chooseRoom.getSelectedIndex(), chsBtnNum, nameText.getText());
 				}
 			});
 			panel.add(seatBts);
 		}
+
+		loginBt = new JButton();
+		loginBt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] stuMsg;
+				if (nameText.getText().isEmpty() || nameText.getText().equals("请输入姓名进行登录！"))
+					nameText.setText("请输入姓名进行登录！");
+				else {
+					stuMsg = Seat.isVIP(nameText.getText());
+					if (stuMsg[0] == -1) {
+						msgChange.login();
+					} else {
+						// vip，指定座位
+						msgChange.chooseSeat(stuMsg[0], stuMsg[1], "尊敬的VIP用户 " + nameText.getText());
+					}
+				}
+			}
+		});
+		loginBt.setBounds(545, 37, 86, 23);
+		ImageIcon iconStart = new ImageIcon(imgDir + "buttonLogin.png");
+		iconStart.setImage(iconStart.getImage().getScaledInstance(loginBt.getBounds().width, loginBt.getBounds().height,
+				Image.SCALE_SMOOTH));
+		loginBt.setIcon(iconStart);
+		loginBt.setContentAreaFilled(false);
+		loginBt.setBorderPainted(false);
+		contentPane.add(loginBt);
 		msgChange.refresh();
 	}
 
