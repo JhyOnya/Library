@@ -1,6 +1,9 @@
 package excelOperate;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -21,20 +24,25 @@ public class readFile {
 			System.out.println("总行数：" + rows + "    总列数：" + cols);
 			// Cell cell=sheet.getCell(5,5);
 			// System.out.print("內容是："+cell.getContents()+" ");
-
 			for (int i = 4; i < sheet.getRows() / 2; i++) {
-				for (int j = 1; j < sheet.getColumns() / 2; j++) {
+			List<String> lineString=new ArrayList<String>();
+			//
+			
+				for (int j = 0; j < sheet.getColumns()/2 ; j++) {
 					Cell cell = sheet.getCell(j, i);
+					lineString.add(cell.getContents());
 					if (cell.getContents().isEmpty())
-						System.out.println("行" + i + "列" + j + " 為空");
+						System.out.println("行"  +i+ "列" + j + " 為空");//+lineString.get(i)
+						
 					else {
-						System.out.println("行" + i + "列" + j + "内容为：");
+						System.out.println("行"  +i+ "列" + j + "内容为：");
 						System.out.println(cell.getContents());
 					}
 				}
+				System.out.println(lineString.size());
+				Course.init(lineString);	//初始化某个专业的课程
 			}
 			book.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
