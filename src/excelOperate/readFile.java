@@ -28,7 +28,7 @@ public class readFile {
 			List<String> lineString=new ArrayList<String>();
 			//
 			
-				for (int j = 0; j < sheet.getColumns()/2 ; j++) {
+				for (int j = 0; j < sheet.getColumns() ; j++) {
 					Cell cell = sheet.getCell(j, i);
 					lineString.add(cell.getContents());
 					if (cell.getContents().isEmpty())
@@ -43,6 +43,15 @@ public class readFile {
 				Course.init(lineString);	//初始化某个专业的课程
 			}
 			book.close();
+			
+			Cell cell1 = sheet.getCell(26, 4);
+			System.out.println("行"  +26+ "列" + 4 + "内容为：");
+			System.out.println(cell1.getContents());
+			
+			Cell cell2 = sheet.getCell(27, 4);
+			System.out.println("行"  +27+ "列" + 4 + "内容为：");
+			System.out.println(cell2.getContents());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
