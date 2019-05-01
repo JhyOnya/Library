@@ -10,6 +10,7 @@ import jxl.Workbook;
 
 //读取csv文件，从第五行开始读取课程总表中信息111
 public class readFile {
+	public static List<Course> courses = new ArrayList<Course>();
 	static String sourceFile = "课程总表.xls"; // 源文件
 	// 读取源文件
 
@@ -25,20 +26,21 @@ public class readFile {
 			// System.out.print("內容是："+cell.getContents()+" ");
 			for (int i = 4; i < sheet.getRows() / 2; i++) {
 				List<String> lineString = new ArrayList<String>();
-
+				Course e=new Course();
 				for (int j = 0; j < sheet.getColumns(); j++) {
 					Cell cell = sheet.getCell(j, i);
 					lineString.add(cell.getContents());
 					if (cell.getContents().isEmpty())
-						System.out.println("行" + i + "列" + j + " 為空" + cell.getContents());// +lineString.get(i)
-
+					{}//System.out.println("行" + i + "列" + j + " 為空" + cell.getContents());// +lineString.get(i)
 					else {
 						// System.out.println("行" +i+ "列" + j + "内容为：");
-						System.out.println(cell.getContents());
+						//System.out.println(cell.getContents());
 					}
-				}
+				}//加入一行的课
+				
 				System.out.println(lineString.size());
-				Course.init(lineString); //初始化某个专业的课程
+				e.init(lineString); //初始化某个专业的课程
+				courses.add(e);
 			}
 			book.close();
 			/*
@@ -55,6 +57,13 @@ public class readFile {
 	}
 
 	public static void main(String[] args) {
+
 		readFile(sourceFile);
+		Course aCourse=new Course();
+		
+		//String[] aStrings= new String[5];
+		//aCourse.printString(aCourse.returnClassWeek("英语1720102", 5));
+		aCourse.returnClassWeek("英语1720102", 5);
+		//System.out.println(aStrings[0]);
 	}
 }
