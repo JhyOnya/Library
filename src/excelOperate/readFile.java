@@ -39,7 +39,7 @@ public class readFile {
 				}//加入一行的课
 				
 				System.out.println(lineString.size());
-				e.init(lineString); //初始化某个专业的课程
+				e.init(lineString); //初始化某个专业的课程 即一行
 				courses.add(e);
 			}
 			book.close();
@@ -50,7 +50,6 @@ public class readFile {
 			 * Cell cell2 = sheet.getCell(27, 4); System.out.println("行" +27+ "列" + 4 +
 			 * "内容为："); System.out.println(cell2.getContents());
 			 */
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,10 +59,14 @@ public class readFile {
 
 		readFile(sourceFile);
 		Course aCourse=new Course();
-		
+		for (int i = 0; i < courses.size(); i++) {
+			if(courses.get(i).majorNum.equals("英语1720102"))
+				courses.get(i).returnThisClassWeeks(1, 1);
+		    System.out.println(courses.get(i).returnThisClassWeeks(0, 0));
+		}
 		//String[] aStrings= new String[5];
 		//aCourse.printString(aCourse.returnClassWeek("英语1720102", 5));
-		aCourse.returnClassWeek("英语1720102", 5);
+		//aCourse.returnClassWeek("英语1720102", 5);
 		//System.out.println(aStrings[0]);
 	}
 }

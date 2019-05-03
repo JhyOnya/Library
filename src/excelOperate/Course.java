@@ -7,10 +7,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sun.corba.se.spi.orb.StringPair;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import sun.launcher.resources.launcher;
 
 public class Course {
 
@@ -35,9 +31,8 @@ public class Course {
 		int count = 0;
 		for (int i = 1; i < aString.size() - 1; i++) { // size大小为27
 			getWeekDay(i);// 周几
-			classWeek[(i - 1) % 5] = solveOneClass(aString.get(i));
-			// getOneDayClass(weekday, aString.get(i));
-			System.out.println("周" + (count / 5 + 1) + "第" + ((i - 1) % 5 + 1) + "节课上课周数:" + classWeek[(i - 1) % 5]);
+			classWeek[weekday] = solveOneClass(aString.get(i));
+			System.out.println("周" + (count / 5 + 1) + "第" + ((i - 1) % 5 + 1) + "节课上课周数:" + classWeek[weekday]);
 			count++;
 			if (count % 5 == 0) {
 				addCourseMap(majorNum, weekday, classWeek);// 给专业号A，星期x的天数，加上其一天的课
@@ -48,7 +43,8 @@ public class Course {
 	public static String solveOneClass(String classStrings) { // 获得某一格子的课程信息
 		String aString = "";
 		if (classStrings.isEmpty()) { // 这节没课
-
+			aString="空";
+			return aString;
 		} else {
 			String[] aStrings = classStrings.split("\\n");
 			// 5 10 15
@@ -63,8 +59,9 @@ public class Course {
 			}
 			aString = aString.substring(0, aString.length() - 1);
 			// System.out.println("本周有课的周数为：" +aString);//本周有课的周数为：1,3,5,7,9,11,2,4,6,8,10,12,14,16,18
+			return aString;
 		}
-		return aString;
+
 	}
 
 	public static String addOneClass(String a) { // 获得"1-15,17-18周,单周"类型字符串，确定其使用周数
@@ -120,10 +117,6 @@ public class Course {
 			weekday = 1;
 		else
 			weekday = y;
-	}
-
-	public int returnWeekday() {
-		return this.weekday;
 	}
 
 	// 不知道对不对
@@ -184,52 +177,39 @@ public class Course {
 		return num;
 	}
 
+	
+	public Map<Integer, String[]> returnTimeMap() {
+		return timeMap;
+	}
+
+	public Map<String, Map<Integer, String[]>> returnCourseMap(String majorStrin) {
+		return courseMap;
+	}
+	
 	public String returnMajorNum() {
 		return this.majorNum;
 	}
 
-	public String[] returnClassWeek(String majorString,int weekDay) {
-		return courseMap.get(majorString).get(weekDay);
+	public String[] returnClassWeek(int weekDay) {
+		return timeMap.get(weekDay);
 	}
 
+	//返回某一节的上课周数
+	public String returnThisClassWeeks(int weekDay,int jieshu) {
+		String[] aString=timeMap.get(weekDay);
+		return aString[jieshu];
+	}
+
+	
 	public static void printString(String[] a) {
 		System.out.println(a.length);
 		for(int i=0;i<a.length;i++) {
 			System.out.println(a[i]);
 		}
 	}
-	public Map<Integer, String[]> returnTimeMap(String majorString) {
-		return courseMap.get(majorString);
-	}
-
-	public Map<String, Map<Integer, String[]>> returnCourseMap(String majorStrin) {
-		return this.courseMap;
-	}
-
+	
 	public static void main(String[] args) {
-		String[] aStrings = new String[] { "3D综合强化训练(Ⅰ)[试]", "韩兆云", "LY513", "环境设计1640903[37人]",
-				"[1-8,10-15,17-18周][1-2节]", "3D综合强化训练(Ⅰ)[试]", "韩兆云", "LY513", "环境设计1640903[37人]",
-				"[1-8,10-15,17-18周][1-2节]", "3D综合强化训练(Ⅰ)[试]", "韩兆云", "LY513", "环境设计1640903[37人]",
-				"[1-8,10-15,17-18周][1-2节]" };
-		List<String> list = new ArrayList<String>();
-		list.add("旅游管理1610103");
-		list.add("旅游规划学[试]\r\n" + "周丽君\r\n" + "LY208\r\n" + "1610103-04[57人]\r\n" + "[1-18周][1-2节]");
-		list.add("旅游市场营销[试]\r\n" + "梅爱松\r\n" + "LY215\r\n" + "1610103-04[57人]\r\n" + "[1-15周][3-4节]");
-		// addCourseMap("环境设计1640903", 1, aStrings);
-		// init(list);
-
-		// for(int i=0;i<aStrings3.length;i++) {
-		// System.out.println(i+"位置上的内容为"+aStrings3[i]); }
-
-		// System.out.println(m.matches());
-
-		// solveOneClass("现代饭店管理[试]\r\n" + "孙凤武\r\n" + "LY209\r\n" +
-		// "酒店1710701-02[67人]\r\n" + "[1-18周,双周][1-2节]\r\n"
-		// + "大学英语视听说\r\n" + "王璨\r\n" + "105语音室(十)\r\n" + "酒店管理1710701[34人]\r\n" +
-		// "[1-12周,单周][1-2节]");
-
-		//addOneClass("1-15,17-18,20周,单周");
-
+		//测试用 可删
 	}
 
 }
