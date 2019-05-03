@@ -20,12 +20,13 @@ public class Course
 
 	public static int weekday; // 周几
 
-	public static void init(List<String> aString)
-	{ // 初始化函数，未完成
-		courseMap = new TreeMap<String, Map<Integer, String[]>>();
-		timeMap = new TreeMap<Integer, String[]>();
-		classWeek = new String[5];
 
+
+	public static void init(List<String> aString) { // 初始化函数，未完成
+		courseMap=new TreeMap<String, Map<Integer, String[]>>();
+		//timeMap=new TreeMap<Integer, String[]>();
+		classWeek=new String[5];
+		
 		getMajorNum(aString.get(0)); // 0为第一格 1-26为课程
 		System.out.println("专业号为：" + majorNum);
 		// System.out.println(aString.get(0));
@@ -34,7 +35,7 @@ public class Course
 		{ // size大小为27
 			getWeekDay(i);// 周几
 			classWeek[weekday] = solveOneClass(aString.get(i));
-			System.out.println("周" + (count / 5 + 1) + "第" + ((i - 1) % 5 + 1) + "节课上课周数:" + classWeek[weekday]);
+//			System.out.println("周" + (count / 5 + 1) + "第" + ((i - 1) % 5 + 1) + "节课上课周数:" + classWeek[weekday]);
 			count++;
 			if (count % 5 == 0)
 			{
@@ -154,6 +155,7 @@ public class Course
 		courseMap.get(majorNum).put(weekDay, aStrings);
 	}
 
+	/*
 	// 不知道对不对
 	public static void addTimeMap(int weekDay, String[] aStrings)
 	{// 增加TimeMap
@@ -166,9 +168,13 @@ public class Course
 			timeMap.put(weekDay, aStrings);
 		}
 	}
+<<<<<<< HEAD
 
 	public static List<Integer> getNum(String a, String b, int flag)
 	{ // 返回a和b之間的數字list
+=======
+*/
+	public static List<Integer> getNum(String a, String b, int flag) { // 返回a和b之間的數字list
 		String numString = "";
 		List<Integer> lst = new ArrayList<Integer>();
 		int numA = changeToInt(a);
@@ -206,8 +212,7 @@ public class Course
 		return num;
 	}
 
-	public Map<Integer, String[]> returnTimeMap()
-	{
+	public Map<Integer, String[]> returnTimeMap() {
 		return timeMap;
 	}
 
@@ -223,13 +228,15 @@ public class Course
 
 	public String[] returnClassWeek(int weekDay)
 	{
-		return timeMap.get(weekDay);
+		return timeMap.get(weekDay);}
+	
+	public String[] returnClassWeek(String majorStrin,int weekDay) {
+		return courseMap.get(majorStrin).get(weekDay);
 	}
 
 	// 返回某一节的上课周数
-	public String returnThisClassWeeks(int weekDay, int jieshu)
-	{
-		String[] aString = timeMap.get(weekDay);
+	public String returnThisClassWeeks(String majorStrin,int weekDay,int jieshu) {
+		String[] aString=courseMap.get(majorStrin).get(weekDay);
 		return aString[jieshu];
 	}
 

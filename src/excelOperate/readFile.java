@@ -12,7 +12,7 @@ import jxl.Workbook;
 
 //读取csv文件，从第五行开始读取课程总表中信息111
 public class readFile
-{
+{ 
 	public static Map<String, Map<Integer, String[]>> courseMap;
 	// public static List<Course> courses = new ArrayList<Course>();
 	static String sourceFile = "课程总表.xls"; // 源文件
@@ -51,11 +51,6 @@ public class readFile
 				} // 加入一行的课
 				e.init(lineString); // 初始化某个专业的课程 即一行
 				courseMap.putAll(e.courseMap);
-				if (courseMap.containsKey("1720102"))
-					for (String string : courseMap.get("1720102").get(0))
-					{
-						System.out.println("1720102" + " 0 " + string);
-					}
 				// courses.add(e);
 			}
 			book.close();
@@ -75,13 +70,20 @@ public class readFile
 
 	public static void main(String[] args)
 	{
-
+		String[] aStrings= new String[5];
 		readFile(sourceFile);
 		Course aCourse = new Course();
-		if (courseMap.containsKey("英语1720102"))
+		if (courseMap.containsKey("1720102"))
 		{
 			courseMap.get("英语1720102");
 			// System.out.println(courseMap.get("英语1720102"));
+			courseMap.get("1720102");
+			aStrings=courseMap.get("1840801").get(2);
+			System.out.println(aStrings[0]);
+			System.out.println(aStrings[1]);
+			System.out.println(aStrings[2]);
+			System.out.println(aStrings[3]);
+			System.out.println(aStrings[4]);
 
 		}
 		// for (int i = 0; i < courseMap.size(); i++) {
