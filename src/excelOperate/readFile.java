@@ -3,19 +3,26 @@ package excelOperate;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
 //读取csv文件，从第五行开始读取课程总表中信息111
-public class readFile {
-	public static List<Course> courses = new ArrayList<Course>();
+public class readFile
+{
+	public static Map<String, Map<Integer, String[]>> courseMap;
+	// public static List<Course> courses = new ArrayList<Course>();
 	static String sourceFile = "课程总表.xls"; // 源文件
 	// 读取源文件
 
-	public static void readFile(String fileNameString) {
-		try {
+	public static void readFile(String fileNameString)
+	{
+		courseMap = new TreeMap<String, Map<Integer, String[]>>();
+		try
+		{
 			Workbook book = Workbook.getWorkbook(new File(fileNameString));
 			// 获取第一个工作表
 			Sheet sheet = book.getSheet(0);
@@ -24,49 +31,64 @@ public class readFile {
 			// System.out.println("总行数：" + rows + " 总列数：" + cols);
 			// Cell cell=sheet.getCell(5,5);
 			// System.out.print("內容是："+cell.getContents()+" ");
-			for (int i = 4; i < sheet.getRows() / 2; i++) {
+			for (int i = 4; i < sheet.getRows() / 2; i++)
+			{
 				List<String> lineString = new ArrayList<String>();
-				Course e=new Course();
-				for (int j = 0; j < sheet.getColumns(); j++) {
+				Course e = new Course();
+				for (int j = 0; j < sheet.getColumns(); j++)
+				{
 					Cell cell = sheet.getCell(j, i);
 					lineString.add(cell.getContents());
 					if (cell.getContents().isEmpty())
-					{}//System.out.println("行" + i + "列" + j + " 為空" + cell.getContents());// +lineString.get(i)
-					else {
+					{
+					} // System.out.println("行" + i + "列" + j + " 為空" +
+						// cell.getContents());// +lineString.get(i)
+					else
+					{
 						// System.out.println("行" +i+ "列" + j + "内容为：");
-						//System.out.println(cell.getContents());
+						// System.out.println(cell.getContents());
 					}
-				}//加入一行的课
-				
+				} // 加入一行的课
+
 				System.out.println(lineString.size());
-				e.init(lineString); //初始化某个专业的课程 即一行
-				courses.add(e);
+				e.init(lineString); // 初始化某个专业的课程 即一行
+				// courses.add(e);
+				courseMap.putAll(e.courseMap);
 			}
 			book.close();
 			/*
-			 * Cell cell1 = sheet.getCell(26, 4); System.out.println("行" +26+ "列" + 4 +
-			 * "内容为："); System.out.println(cell1.getContents());
+			 * Cell cell1 = sheet.getCell(26, 4); System.out.println("行" +26+
+			 * "列" + 4 + "内容为："); System.out.println(cell1.getContents());
 			 * 
-			 * Cell cell2 = sheet.getCell(27, 4); System.out.println("行" +27+ "列" + 4 +
-			 * "内容为："); System.out.println(cell2.getContents());
+			 * Cell cell2 = sheet.getCell(27, 4); System.out.println("行" +27+
+			 * "列" + 4 + "内容为："); System.out.println(cell2.getContents());
 			 */
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		readFile(sourceFile);
-		Course aCourse=new Course();
-		for (int i = 0; i < courses.size(); i++) {
-			if(courses.get(i).majorNum.equals("英语1720102"))
-				courses.get(i).returnThisClassWeeks(1, 1);
-		    System.out.println(courses.get(i).returnThisClassWeeks(0, 0));
+		Course aCourse = new Course();
+		if (courseMap.containsKey("英语1720102"))
+		{
+			courseMap.get("英语1720102");
+			System.out.println(courseMap.get("英语1720102"));
+
 		}
-		//String[] aStrings= new String[5];
-		//aCourse.printString(aCourse.returnClassWeek("英语1720102", 5));
-		//aCourse.returnClassWeek("英语1720102", 5);
-		//System.out.println(aStrings[0]);
+		// for (int i = 0; i < courseMap.size(); i++) {
+		// if(courseMap.get(i).majorNum.equals("英语1720102"))
+		// courseMap.get(i).returnThisClassWeeks(1, 1);
+		// System.out.println(courseMap.get(i).returnThisClassWeeks(0, 0));
+		// }
+		// String[] aStrings= new String[5];
+		// aCourse.printString(aCourse.returnClassWeek("英语1720102", 5));
+		// aCourse.returnClassWeek("英语1720102", 5);
+		// System.out.println(aStrings[0]);
 	}
 }

@@ -114,7 +114,7 @@ public class mainFrame extends JFrame {
 		chooseRoom.setBounds(725, 37, 86, 21);
 		contentPane.add(chooseRoom);
 
-		nameText = new JTextField(imgDir);
+		nameText = new JTextField();
 		nameText.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
