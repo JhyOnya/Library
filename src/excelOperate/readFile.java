@@ -32,10 +32,10 @@ public class readFile
 			// System.out.println("总行数：" + rows + " 总列数：" + cols);
 			// Cell cell=sheet.getCell(5,5);
 			// System.out.print("內容是："+cell.getContents()+" ");
-			for (int i = 4; i < sheet.getRows() / 2; i++)
+			for (int i = 4; i < sheet.getRows()-1; i++)
 			{
 				List<String> lineString = new ArrayList<String>();
-				for (int j = 0; j < sheet.getColumns(); j++)
+				for (int j = 0; j < sheet.getColumns()-1; j++)
 				{
 					Cell cell = sheet.getCell(j, i);
 					lineString.add(cell.getContents());
@@ -52,6 +52,23 @@ public class readFile
 				e.init(lineString); // 初始化某个专业的课程 即一行
 				courseMap.putAll(e.courseMap);
 				// courses.add(e);
+				/*for(int z=0;z<sheet.getColumns();z++) {
+					Cell cell = sheet.getCell(z, 5);
+					lineString.add(cell.getContents());
+					if (cell.getContents().isEmpty())
+					{
+					  System.out.println("行" + 5 + "列" + z + " 為空" +
+						 cell.getContents());// +lineString.get(i)
+					}
+					else
+					{
+						 System.out.println("行" +5+ "列" + z + "内容为：");
+						 System.out.println(cell.getContents());
+					}
+				}*/
+				
+				
+				
 			}
 			book.close();
 			/*
@@ -78,7 +95,7 @@ public class readFile
 			courseMap.get("英语1720102");
 			// System.out.println(courseMap.get("英语1720102"));
 			courseMap.get("1720102");
-			aStrings=courseMap.get("1840801").get(2);
+			aStrings=courseMap.get("1720102").get(3);
 			System.out.println(aStrings[0]);
 			System.out.println(aStrings[1]);
 			System.out.println(aStrings[2]);
