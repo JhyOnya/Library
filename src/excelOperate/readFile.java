@@ -20,6 +20,7 @@ public class readFile
 
 	public static void readFile(String fileNameString)
 	{
+		Course e = new Course();
 		courseMap = new TreeMap<String, Map<Integer, String[]>>();
 		try
 		{
@@ -34,7 +35,6 @@ public class readFile
 			for (int i = 4; i < sheet.getRows() / 2; i++)
 			{
 				List<String> lineString = new ArrayList<String>();
-				Course e = new Course();
 				for (int j = 0; j < sheet.getColumns(); j++)
 				{
 					Cell cell = sheet.getCell(j, i);
@@ -49,11 +49,14 @@ public class readFile
 						// System.out.println(cell.getContents());
 					}
 				} // 加入一行的课
-
-				System.out.println(lineString.size());
 				e.init(lineString); // 初始化某个专业的课程 即一行
-				// courses.add(e);
 				courseMap.putAll(e.courseMap);
+				if (courseMap.containsKey("1720102"))
+					for (String string : courseMap.get("1720102").get(0))
+					{
+						System.out.println("1720102" + " 0 " + string);
+					}
+				// courses.add(e);
 			}
 			book.close();
 			/*
@@ -64,9 +67,9 @@ public class readFile
 			 * "列" + 4 + "内容为："); System.out.println(cell2.getContents());
 			 */
 		}
-		catch (Exception e)
+		catch (Exception e1)
 		{
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
 	}
 
@@ -78,7 +81,7 @@ public class readFile
 		if (courseMap.containsKey("英语1720102"))
 		{
 			courseMap.get("英语1720102");
-			System.out.println(courseMap.get("英语1720102"));
+			// System.out.println(courseMap.get("英语1720102"));
 
 		}
 		// for (int i = 0; i < courseMap.size(); i++) {
