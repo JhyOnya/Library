@@ -72,13 +72,18 @@ public class readFile
 
 	public static void main(String[] args)
 	{
-
+		String[] aStrings= new String[5];
 		readFile(sourceFile);
 		Course aCourse = new Course();
-		if (courseMap.containsKey("”¢”Ô1720102"))
+		if (courseMap.containsKey("1720102"))
 		{
-			courseMap.get("”¢”Ô1720102");
-			System.out.println(courseMap.get("”¢”Ô1720102"));
+			courseMap.get("1720102");
+			aStrings=courseMap.get("1720102").get(3);
+			System.out.println(aStrings[0]);
+			System.out.println(aStrings[1]);
+			System.out.println(aStrings[2]);
+			System.out.println(aStrings[3]);
+			System.out.println(aStrings[4]);
 
 		}
 		// for (int i = 0; i < courseMap.size(); i++) {

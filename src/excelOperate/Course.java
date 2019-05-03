@@ -12,7 +12,7 @@ public class Course {
 
 	public static Map<String, Map<Integer, String[]>> courseMap;
 	// 专业号 周几 开始节/结束节/上课周 全部是字符串
-	public static Map<Integer, String[]> timeMap;
+	//public static Map<Integer, String[]> timeMap;
 	// 周几 开始节/结束节/上课周 全部是字符串
 	public static String[] classWeek;
 	// 课程时间信息 每周五天 周A中每节的上课周
@@ -22,7 +22,7 @@ public class Course {
 
 	public static void init(List<String> aString) { // 初始化函数，未完成
 		courseMap=new TreeMap<String, Map<Integer, String[]>>();
-		timeMap=new TreeMap<Integer, String[]>();
+		//timeMap=new TreeMap<Integer, String[]>();
 		classWeek=new String[5];
 		
 		getMajorNum(aString.get(0)); // 0为第一格 1-26为课程
@@ -136,6 +136,7 @@ public class Course {
 		}
 	}
 
+	/*
 	// 不知道对不对
 	public static void addTimeMap(int weekDay, String[] aStrings) {// 增加TimeMap
 		if (timeMap == null) {
@@ -145,7 +146,7 @@ public class Course {
 			timeMap.put(weekDay, aStrings);
 		}
 	}
-
+*/
 	public static List<Integer> getNum(String a, String b, int flag) { // 返回a和b之間的數字list
 		String numString = "";
 		List<Integer> lst = new ArrayList<Integer>();
@@ -177,26 +178,23 @@ public class Course {
 		return num;
 	}
 
-	
+	/*
 	public Map<Integer, String[]> returnTimeMap() {
 		return timeMap;
 	}
+	*/
 
 	public Map<String, Map<Integer, String[]>> returnCourseMap(String majorStrin) {
 		return courseMap;
 	}
 	
-	public String returnMajorNum() {
-		return this.majorNum;
-	}
-
-	public String[] returnClassWeek(int weekDay) {
-		return timeMap.get(weekDay);
+	public String[] returnClassWeek(String majorStrin,int weekDay) {
+		return courseMap.get(majorStrin).get(weekDay);
 	}
 
 	//返回某一节的上课周数
-	public String returnThisClassWeeks(int weekDay,int jieshu) {
-		String[] aString=timeMap.get(weekDay);
+	public String returnThisClassWeeks(String majorStrin,int weekDay,int jieshu) {
+		String[] aString=courseMap.get(majorStrin).get(weekDay);
 		return aString[jieshu];
 	}
 
