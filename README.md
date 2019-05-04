@@ -2,7 +2,9 @@
 <br>1、建立了一个新的map，key是vip的名字，value是vip的班级
 <br>2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
 <br>3、删除了msgChange.java中关于EmptyVip的相关代码，因为系统是随时刷新的，所以不用管添加时vip有没有课，运行之后，马上刷新
-
+<br>4、可以修改Seat.java中的init()添加会员
+<br>5、修改mainFrame.java中的当前时间可以进行任意时间的测试
+<br>6、修改getTime.java中的baseTime(真实时间必须是周一)，便于测试
 ### 置顶_问题
 #### Seat类getSeatTime函数需要完善_姜弘扬
 <br> 给定一个vip姓名和一个时间，计算vip还有多久下课
