@@ -9,37 +9,20 @@ import java.util.regex.Pattern;
 
 public class Course {
 
-	public static Map<String, Map<Integer, String[]>> courseMap;
+	public static Map<String, String[]> courseMap;
 	// 专业号 周几 开始节/结束节/上课周 全部是字符串
-	public static Map<Integer, String[]> timeMap;
-	// 周几 开始节/结束节/上课周 全部是字符串
 	public static String[] classWeek;
 	// 课程时间信息 每周五天 周A中每节的上课周
 	public static String majorNum; // 专业号
 
-	public static int weekday; // 周几
-
-	public static void init(List<String> aString) { // 初始化函数，未完成
-		courseMap = new TreeMap<String, Map<Integer, String[]>>();
-		// timeMap=new TreeMap<Integer, String[]>();
-		classWeek = new String[5];
-
+	public static void init(List<String> aString) { // 初始化函数
+		courseMap = new TreeMap<String, String[]>();
+		classWeek = new String[25];
 		getMajorNum(aString.get(0)); // 0为第一格 1-26为课程
-		System.out.println("专业号为：" + majorNum);
-		// System.out.println(aString.get(0));
-		int count = 0;
-		//	1 2 3 4 5 6 7 8 9 10
-		//周0 0 0 0 0 1 1 1 1 1
+		//System.out.println("专业号为：" + majorNum);
  		for (int i = 1; i < aString.size() ; i++) { // size大小为27
-			getWeekDay(i);// 周几         周i/5
-			classWeek[(i-1)%5] = solveOneClass(aString.get(i));
-			
-			System.out.println("周" + (count / 5 + 1) + "第" + (i-1)%5 + "节课上课周数:" + classWeek[(i-1)%5]);
-			count++;
-			if (count % 5 == 0) {
-				addCourseMap(majorNum, weekday, classWeek);// 给专业号A，星期x的天数，加上其一天的课
-			}
-		
+			classWeek[i-1] = solveOneClass(aString.get(i));
+			addCourseMap(majorNum, classWeek);// 给专业号A，星期x的天数，加上其一天的课
 		}
 	}
 
@@ -61,8 +44,7 @@ public class Course {
 				aString = addOneClass(b) + aString;
 			}
 			aString = aString.substring(0, aString.length() - 1);
-			// System.out.println("本周有课的周数为："
-			// +aString);//本周有课的周数为：1,3,5,7,9,11,2,4,6,8,10,12,14,16,18
+			// System.out.println("本周有课的周数为："+aString);//本周有课的周数为：1,3,5,7,9,11,2,4,6,8,10,12,14,16,18
 			return aString;
 		}
 
@@ -113,41 +95,24 @@ public class Course {
 	public static void getMajorNum(String numString) {
 		majorNum = numString.replaceAll("\\D+", "");
 	}
-
-	// 周几
-	public static void getWeekDay(int x) {
-		int y = (int) (x-1) / 5;
-		//	1 2 3 4 5 6 7 8 9 10
-		//周0 0 0 0 0 1 1 1 1 1
-		if (y > 5)
-			weekday = 1;
-		else
-			weekday = y;
+	
+	public static int getIndex(int x,int jieshu) {//输入的是周几，范围1-5,转换为大小为25数组的索引 周一第一节  1 1索引为0
+		int a=0;
+		if(x>5||x<1)
+			System.out.println("输入不合法");
+		a=5*(x-1)+jieshu-1;
+		return a;
 	}
-
-	// 不知道对不对
-	public static void addCourseMap(String majorNum, int weekDay, String[] aStrings) { // 增加course类及其中内容
+	
+	public static void addCourseMap(String majorNum, String[] aStrings) { // 增加course类及其中内容
 		if (courseMap == null)
-			courseMap = new TreeMap<String, Map<Integer, String[]>>();
+			courseMap = new TreeMap<String, String[]>();
 
 		if (courseMap.get(majorNum) == null) {
-			courseMap.put(majorNum, new TreeMap<Integer, String[]>());		
+			courseMap.put(majorNum, aStrings);		
 		}
-
-		// System.out.println("運行");
-		courseMap.get(majorNum).put(weekDay, aStrings);
-		System.out.println(weekDay+"  "+aStrings[0]+"  "+aStrings[1]+"  "+aStrings[2]+"  "+aStrings[3]+"  "+aStrings[4]+"  ");
 	}
-
-	/*
-	 * // 不知道对不对 public static void addTimeMap(int weekDay, String[] aStrings) {//
-	 * 增加TimeMap if (timeMap == null) { timeMap = new TreeMap<Integer, String[]>();
-	 * } if (timeMap.get(weekDay) == null) { timeMap.put(weekDay, aStrings); } }
-	 * <<<<<<< HEAD
-	 * 
-	 * public static List<Integer> getNum(String a, String b, int flag) { //
-	 * 返回a和b之間的數字list =======
-	 */
+	
 	public static List<Integer> getNum(String a, String b, int flag) { // 返回a和b之間的數字list
 		String numString = "";
 		List<Integer> lst = new ArrayList<Integer>();
@@ -179,39 +144,11 @@ public class Course {
 		return num;
 	}
 
-	public Map<Integer, String[]> returnTimeMap() {
-		return timeMap;
-	}
-
-	public Map<String, Map<Integer, String[]>> returnCourseMap(String majorStrin) {
-		return courseMap;
-	}
 
 	public String returnMajorNum() {
 		return this.majorNum;
 	}
-
-	public static String[] returnClassWeek(int weekDay) {
-		return timeMap.get(weekDay);
-	}
-
-	public static String[] returnClassWeek(String majorStrin, int weekDay) {
-		return courseMap.get(majorStrin).get(weekDay);
-	}
-
-	// 返回某一节的上课周数
-	public String returnThisClassWeeks(String majorStrin, int weekDay, int jieshu) {
-		String[] aString = courseMap.get(majorStrin).get(weekDay);
-		return aString[jieshu];
-	}
-
-	public static void printString(String[] a) {
-		System.out.println(a.length);
-		for (int i = 0; i < a.length; i++) {
-			System.out.println(a[i]);
-		}
-	}
-
+	
 	public static void main(String[] args) {
 		// 测试用 可删
 		List<String> aList=new ArrayList<String>();
@@ -358,22 +295,20 @@ public class Course {
 				"[25周][1-2节]");
 		
 		init(aList);
-		String [] aStrings1=new String[5];
-		aStrings1=(courseMap.get("151106")).get(1);
+		String [] aStrings1=new String[25];
+		aStrings1=courseMap.get("151106");
 		//aStrings1=classWeek;
-		System.out.println(classWeek[0]);
-		System.out.println(classWeek[1]);
-		System.out.println(classWeek[2]);
-		System.out.println(classWeek[3]);
-		System.out.println(classWeek[4]);
-		
-		aStrings1=(courseMap.get("151106")).get(2);
-		//aStrings1=classWeek;
-		System.out.println(classWeek[0]);
-		System.out.println(classWeek[1]);
-		System.out.println(classWeek[2]);
-		System.out.println(classWeek[3]);
-		System.out.println(classWeek[4]);
+		System.out.println(aStrings1[getIndex(1, 1)]);
+		System.out.println(aStrings1[getIndex(1, 2)]);
+		System.out.println(aStrings1[getIndex(1, 3)]);
+		System.out.println(aStrings1[getIndex(1, 4)]);
+		System.out.println(aStrings1[getIndex(1, 5)]);
+		System.out.println(aStrings1[getIndex(2, 1)]);
+		System.out.println(aStrings1[getIndex(2, 2)]);
+		System.out.println(aStrings1[getIndex(2, 3)]);
+		System.out.println(aStrings1[getIndex(2, 4)]);
+		System.out.println(aStrings1[getIndex(2, 5)]);
+		System.out.println(aStrings1[getIndex(5, 5)]);
 		
 	}
 
