@@ -1,7 +1,7 @@
 ### 0504更改，成一铭
-1、建立了一个新的map，key是vip的名字，value是vip的班级
-2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
-3、删除了msgChange.java中关于EmptyVip的相关代码，因为系统是随时刷新的，所以不用管添加时vip有没有课，运行之后，马上刷新
+<br>1、建立了一个新的map，key是vip的名字，value是vip的班级
+<br>2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
+<br>3、删除了msgChange.java中关于EmptyVip的相关代码，因为系统是随时刷新的，所以不用管添加时vip有没有课，运行之后，马上刷新
 
 ### 置顶_问题
 #### Seat类getSeatTime函数需要完善_姜弘扬
