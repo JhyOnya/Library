@@ -59,7 +59,7 @@ public class readFile
 			courseMap.get("英语1720102");
 			// System.out.println(courseMap.get("英语1720102"));
 			courseMap.get("1720102");
-			aStrings=courseMap.get("1720101");
+			aStrings=courseMap.get("1720101");//以下输出代表 周一的12345节课
 			System.out.println(aStrings[Course.getIndex(1, 1)]);
 			System.out.println(aStrings[Course.getIndex(1, 2)]);
 			System.out.println(aStrings[Course.getIndex(1, 3)]);
