@@ -19,7 +19,7 @@ public class Seat {
 	public static Map<Integer, Map<Integer, String>> vipUsingSeats;// <1,<3,lih>>,教室1座位3是lih正在使用的vip座位
 	public static Map<Integer, Map<Integer, String>> vipEmptySeats;// <1,<3,lih>>,教室1座位3是lih暂时不用的的vip座位
 	public static Map<Integer, Map<Integer, String>> seats;// 当前座位信息<教室，<座位，姓名>>，仅限当前使用
-	public static Map<String,String> nameToClass=new TreeMap<String, String>();//表示姓名以及对应的班级
+	public static Map<String, String> nameToClass = new TreeMap<String, String>();// 表示姓名以及对应的班级
 
 	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
@@ -50,13 +50,10 @@ public class Seat {
 	}
 
 	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
-	public static String getSeatTime(String name, String askTime){
-		try {
-			return getTime.calRemainTime(name,askTime);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			return "未知";
-		}
+	public static String getSeatTime(String name, String askTime) {
+		return askTime;
+//		return getTime.calRemainTime(name, askTime);
+
 //		return (askTime.substring(askTime.indexOf(":") + 1));
 	}
 
@@ -76,7 +73,7 @@ public class Seat {
 				put(seat, name);
 			}
 		});
-		vipNames.put(name, new int[] {room,seat});
+		vipNames.put(name, new int[] { room, seat });
 	}
 
 	// 新建VIP。参数：教室+座位号+姓名。
@@ -86,7 +83,7 @@ public class Seat {
 				put(seat, name);
 			}
 		});
-		vipNames.put(name, new int[] {room,seat});
+		vipNames.put(name, new int[] { room, seat });
 	}
 
 	// 是否是VIP。目前没有用到。参数：教室+座位号+姓名
@@ -94,7 +91,7 @@ public class Seat {
 		int[] seat = new int[2];
 		if (vipNames.containsKey(name)) {
 			// 是vip？是vip的话返回教室+座位
-			seat=vipNames.get(name);
+			seat = vipNames.get(name);
 		} else {
 			seat[0] = -1;
 			seat[1] = -1;
