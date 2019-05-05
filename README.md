@@ -1,8 +1,4 @@
 ### 置顶_问题
-#### 关于函数改动_姜弘扬
-<br> 为了减少冲突，提供函数用法和参数以及返回类型，并实现别人需要的函数即可，请尽量不要修改别的类
-<br> 提供好接口后，可以在readme中留言
-<br> 同理，需要的接口也请在readme中留言
 #### Seat类getSeatTime函数需要完善_姜弘扬
 <br> 给定一个vip姓名和一个时间，计算vip还有多久下课
 <br> getSeatTime(String name, String askTime)
@@ -24,9 +20,7 @@
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
 ### 0505更改，姜弘扬
 <br>1、由于UI界面不关心班级问题，所以姓名班级的map请写到自己的部分
-<br>2、Seat.init中的usingVip是当前时间没课的vip，EmptyVip是当前时间有课的vip,不能合并。参数String time不能删除因为我要根据时间判断该时间EmptyVip列表，并调用函数计算列表中的用户多久下课
-<br>3、恢复msgChange.java中关于EmptyVip的相关代码，理由见上
-<br>4、Seat.java中的init()仅做测试，请提供用户列表信息的调用接口
+<br>2、Seat.java中的init()仅做测试，请提供用户列表信息的调用接口，届时再做修改
 ### 0504更改，成一铭
 <br>1、建立了一个新的map，key是vip的名字，value是vip的班级
 <br>2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
