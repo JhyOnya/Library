@@ -3,6 +3,7 @@ package frameOperate;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -82,9 +83,14 @@ public class msgChange {
 				Map.Entry<Integer, String> entry = entries.next();
 //				((JButton) mainFrame.panel.getComponent(entry.getValue())).setEnabled(false);
 				String time = preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText();
-				String freshTime = Seat.getSeatTime(entry.getValue(), time);
-				((JButton) mainFrame.panel.getComponent(entry.getKey()))
-						.setText(entry.getKey() + 1 + ".剩余时间：" + freshTime);
+				String freshTime;
+				try {
+					freshTime = Seat.getSeatTime(entry.getValue(), time);
+					((JButton) mainFrame.panel.getComponent(entry.getKey()))
+					.setText(entry.getKey() + 1 + ".剩余时间：" + freshTime);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
