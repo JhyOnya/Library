@@ -50,8 +50,13 @@ public class Seat {
 	}
 
 	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
-	public static String getSeatTime(String name, String askTime) throws ParseException {
-		return getTime.calRemainTime(askTime);
+	public static String getSeatTime(String name, String askTime){
+		try {
+			return getTime.calRemainTime(name,askTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			return "未知";
+		}
 //		return (askTime.substring(askTime.indexOf(":") + 1));
 	}
 

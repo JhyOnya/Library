@@ -44,38 +44,38 @@ public class msgChange {
 
 	public static void chooseSeat(int room, int seat, String name) {
 		if (name.isEmpty()) {
-			getErrOrder("ÇëµÇÂ¼ºóÔÙÑ¡×ù£¡");
+			getErrOrder("è¯·ç™»å½•åå†é€‰åº§ï¼");
 			return;
 		}
 		int r = room + 1;
 		int s = seat + 1;
-		getOrder(name + "£¬ÄúµÄ×ùÎ»ÊÇ£º\n   ½ÌÊÒ" + r + ",×ùÎ»" + s + "£¡\n   ÒÑ×Ô¶¯ÍË³ö");
-		name.replace("×ğ¾´µÄVIPÓÃ»§", "");
+		getOrder(name + "ï¼Œæ‚¨çš„åº§ä½æ˜¯ï¼š\n   æ•™å®¤" + r + ",åº§ä½" + s + "ï¼\n   å·²è‡ªåŠ¨é€€å‡º");
+		name.replace("å°Šæ•¬çš„VIPç”¨æˆ·", "");
 		Seat.selectSeat(room, seat, name);
 		((JButton) mainFrame.panel.getComponent(seat)).setEnabled(false);
-		((JButton) mainFrame.panel.getComponent(seat)).setText("Ê¹ÓÃÖĞ£º" + name);
+		((JButton) mainFrame.panel.getComponent(seat)).setText("ä½¿ç”¨ä¸­ï¼š" + name);
 
 		msgChange.logout();
 	}
 
 	public static void getOrder(String qus) {
-		JOptionPane.showMessageDialog(null, qus, "Ñ¡×ù³É¹¦", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, qus, "é€‰åº§æˆåŠŸ", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public static void getErrOrder(String qus) {
-		JOptionPane.showMessageDialog(null, qus, "²Ù×÷Ê§°Ü£¡", JOptionPane.DEFAULT_OPTION);
+		JOptionPane.showMessageDialog(null, qus, "æ“ä½œå¤±è´¥ï¼", JOptionPane.DEFAULT_OPTION);
 	}
 
 	public static void refresh() {
 		Seat.init(preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText());
 		int room = mainFrame.chooseRoom.getSelectedIndex();
-		// ÖØÖÃµÄ×ùÎ»
+		// é‡ç½®çš„åº§ä½
 		for (int i = 0; i < Seat.seatNum; i++) {
 			((JButton) mainFrame.panel.getComponent(i)).setEnabled(preOrChs && isLog);
 			((JButton) mainFrame.panel.getComponent(i)).setText(i + 1 + "");
 		}
 
-		// vip¿ÕÏĞ×ùÎ»
+		// vipç©ºé—²åº§ä½
 		Map<Integer, String> vipEmptySeats = Seat.getvipEmptySeats(room);
 		if (vipEmptySeats != null) {
 			Iterator<Map.Entry<Integer, String>> entries = vipEmptySeats.entrySet().iterator();
@@ -84,17 +84,14 @@ public class msgChange {
 //				((JButton) mainFrame.panel.getComponent(entry.getValue())).setEnabled(false);
 				String time = preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText();
 				String freshTime;
-				try {
-					freshTime = Seat.getSeatTime(entry.getValue(), time);
-					((JButton) mainFrame.panel.getComponent(entry.getKey()))
-					.setText(entry.getKey() + 1 + ".Ê£ÓàÊ±¼ä£º" + freshTime);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				freshTime = Seat.getSeatTime(entry.getValue(), time);
+				((JButton) mainFrame.panel.getComponent(entry.getKey()))
+						.setText(entry.getKey() + 1 + ".å‰©ä½™æ—¶é—´ï¼š" + freshTime);
+
 			}
 		}
 
-		// vipÊ¹ÓÃ×ùÎ»
+		// vipä½¿ç”¨åº§ä½
 		Map<Integer, String> vipUsingSeats = Seat.getvipUsingSeats(room);
 		if (vipUsingSeats != null) {
 			Iterator<Map.Entry<Integer, String>> entries = vipUsingSeats.entrySet().iterator();
@@ -102,10 +99,10 @@ public class msgChange {
 				Map.Entry<Integer, String> entry = entries.next();
 				((JButton) mainFrame.panel.getComponent(entry.getKey())).setEnabled(false);
 				((JButton) mainFrame.panel.getComponent(entry.getKey()))
-						.setText(entry.getKey() + 1 + ".Ê¹ÓÃÖĞ£º" + entry.getValue());
+						.setText(entry.getKey() + 1 + ".ä½¿ç”¨ä¸­ï¼š" + entry.getValue());
 			}
 		}
-		// Ê¹ÓÃÖĞ×ùÎ»£¬½öµ±Ç°Ê±¼ä¿ÉÓÃ
+		// ä½¿ç”¨ä¸­åº§ä½ï¼Œä»…å½“å‰æ—¶é—´å¯ç”¨
 		if (preOrChs) {
 			Map<Integer, String> preSeats = Seat.getroomSeats(room);
 			if (preSeats != null) {
@@ -114,14 +111,15 @@ public class msgChange {
 					Map.Entry<Integer, String> entry = entries.next();
 					((JButton) mainFrame.panel.getComponent(entry.getKey())).setEnabled(false);
 					((JButton) mainFrame.panel.getComponent(entry.getKey()))
-							.setText(entry.getKey() + 1 + ".Ê¹ÓÃÖĞ£º" + entry.getValue());
+							.setText(entry.getKey() + 1 + ".ä½¿ç”¨ä¸­ï¼š" + entry.getValue());
 				}
 			}
 		}
 
 	}
 
-//	// Í¨¹ı×é¼şÄÚÈİÑ°ÕÒ°´Å¥
+//
+//	// é€šè¿‡ç»„ä»¶å†…å®¹å¯»æ‰¾æŒ‰é’®
 //	public static int searchComponentByName(Container c, String name) {
 //		int chsBtn = 0;
 //		Component[] components = c.getComponents();

@@ -50,7 +50,7 @@ public class getTime {
 	 * @param className
 	 * @throws ParseException
 	 */
-	public static void calTimeList(String askTime) throws ParseException {
+	public static void calTimeList(String className,String askTime) throws ParseException {
 		calWeekAndDay(askTime);
 		if(dayOfWeek==6||dayOfWeek==7)
 			return;
@@ -58,7 +58,11 @@ public class getTime {
 		Course aCourse = new Course();
 
 		
-		
+//		System.out.println("className1:"+className);
+		if (readFile.courseMap.containsKey(className)) {
+			weekList=readFile.courseMap.get(className);
+			
+		}
 //		为timeList赋值
 		init();
 		if(dayOfWeek>5||dayOfWeek<1)
@@ -111,8 +115,8 @@ public class getTime {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String calRemainTime(String askTime) throws ParseException {
-		calTimeList(askTime);
+	public static String calRemainTime(String className,String askTime) throws ParseException {
+		calTimeList(className,askTime);
 		if(dayOfWeek==6||dayOfWeek==7)
 			return "VIP occupied";
 		SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
@@ -180,7 +184,7 @@ public class getTime {
 		Date date1 = new Date();
 		String sdate1="2019-05-04 13:15:14";
 		String className="151101";
-		calRemainTime(sdate1);
+		calRemainTime(className,sdate1);
 	
 	}
 
