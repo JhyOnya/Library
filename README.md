@@ -1,11 +1,8 @@
-### 0504更改，成一铭
-<br>1、建立了一个新的map，key是vip的名字，value是vip的班级
-<br>2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
-<br>3、删除了msgChange.java中关于EmptyVip的相关代码，因为系统是随时刷新的，所以不用管添加时vip有没有课，运行之后，马上刷新
-<br>4、可以修改Seat.java中的init()添加会员
-<br>5、修改mainFrame.java中的当前时间可以进行任意时间的测试
-<br>6、修改getTime.java中的baseTime(真实时间必须是周一)，便于测试
 ### 置顶_问题
+#### 关于函数改动_姜弘扬
+<br> 为了减少冲突，提供函数用法和参数以及返回类型，并实现别人需要的函数即可，请尽量不要修改别的类
+<br> 提供好接口后，可以在readme中留言
+<br> 同理，需要的接口也请在readme中留言
 #### Seat类getSeatTime函数需要完善_姜弘扬
 <br> 给定一个vip姓名和一个时间，计算vip还有多久下课
 <br> getSeatTime(String name, String askTime)
@@ -15,7 +12,6 @@
 <br> 关于学生信息 -给学生类信息设定为[学号 姓名 ] 其中学号设定为9位数字，前7位为班级号eg.1730704，后2位为学生在班级内的序号eg.01；173070401为金融学1730704班1号。 
 <br> 建议学生相关操作，使用学生学号作为参数，查询其班级、课表、是否为vip等信息。
 #### vip设定Seat.init_姜弘扬
-
 <br> 只需要把vip信息用下面两个函数添加即可，参数：int 教室，int 座位，String 姓名。无返回
 <br> //添加time时没有课的VIP
 <br> addUsingVIP(1, 6, "va");
@@ -26,7 +22,18 @@
 <br> (String类型)time时  有课的VIP  : EmptyVIP
 
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
-
+### 0505更改，姜弘扬
+<br>1、由于UI界面不关心班级问题，所以姓名班级的map请写到自己的部分
+<br>2、Seat.init中的usingVip是当前时间没课的vip，EmptyVip是当前时间有课的vip,不能合并。参数String time不能删除因为我要根据时间判断该时间EmptyVip列表，并调用函数计算列表中的用户多久下课
+<br>3、恢复msgChange.java中关于EmptyVip的相关代码，理由见上
+<br>4、Seat.java中的init()仅做测试，请提供用户列表信息的调用接口
+### 0504更改，成一铭
+<br>1、建立了一个新的map，key是vip的名字，value是vip的班级
+<br>2、将Seat.init中的usingVip以及EmptyVip合并起来，都是vip，去掉了参数String time。
+<br>3、删除了msgChange.java中关于EmptyVip的相关代码，因为系统是随时刷新的，所以不用管添加时vip有没有课，运行之后，马上刷新
+<br>4、可以修改Seat.java中的init()添加会员
+<br>5、修改mainFrame.java中的当前时间可以进行任意时间的测试
+<br>6、修改getTime.java中的baseTime(真实时间必须是周一)，便于测试
 ### 0426关于进度_姜弘扬
 <br> 删除Message类
 <br> 为了导出jar包时图片仍能显示，对图片存放进行修改
