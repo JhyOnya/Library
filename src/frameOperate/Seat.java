@@ -19,7 +19,6 @@ public class Seat {
 	public static Map<Integer, Map<Integer, String>> vipUsingSeats;// <1,<3,lih>>,教室1座位3是lih正在使用的vip座位
 	public static Map<Integer, Map<Integer, String>> vipEmptySeats;// <1,<3,lih>>,教室1座位3是lih暂时不用的的vip座位
 	public static Map<Integer, Map<Integer, String>> seats;// 当前座位信息<教室，<座位，姓名>>，仅限当前使用
-	public static Map<String, String> nameToClass = new TreeMap<String, String>();// 表示姓名以及对应的班级
 
 	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
@@ -86,7 +85,7 @@ public class Seat {
 		vipNames.put(name, new int[] { room, seat });
 	}
 
-	// 是否是VIP。目前没有用到。参数：教室+座位号+姓名
+	// 是否是VIP。参数：教室+座位号+姓名
 	public static int[] isVIP(String name) {
 		int[] seat = new int[2];
 		if (vipNames.containsKey(name)) {
