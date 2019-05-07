@@ -22,18 +22,18 @@ public class getTime {
 	// 创建姓名到班级的词典
 
 	public static void initNameToClass() {
-		nameToClass.put("va", "1610107");
-		nameToClass.put("vb", "1610108");
-		nameToClass.put("vc", "1610109");
-		nameToClass.put("vd", "151105");
-		nameToClass.put("ve", "151106");
-		nameToClass.put("vf", "151107");
-		nameToSeat.put("va", new int[] { 0, 2 });
-		nameToSeat.put("vb", new int[] { 0, 5 });
-		nameToSeat.put("vc", new int[] { 0, 9 });
-		nameToSeat.put("vd", new int[] { 1, 2 });
-		nameToSeat.put("ve", new int[] { 3, 4 });
-		nameToSeat.put("vf", new int[] { 2, 1 });
+		nameToClass.put("王俊凯", "1610107");
+		nameToSeat.put("王俊凯", new int[] { 0, 2 });
+		nameToClass.put("王源", "1610108");
+		nameToSeat.put("王源", new int[] { 0, 5 });
+		nameToClass.put("易烊千玺", "1610109");
+		nameToSeat.put("易烊千玺", new int[] { 0, 9 });
+		nameToClass.put("白敬亭", "151105");
+		nameToSeat.put("白敬亭", new int[] { 1, 2 });
+		nameToClass.put("撒贝宁", "151106");
+		nameToSeat.put("撒贝宁", new int[] { 3, 4 });
+		nameToClass.put("何炅", "151107");
+		nameToSeat.put("何炅", new int[] { 2, 1 });
 		// 对6个vip进行赋值
 	}
 
