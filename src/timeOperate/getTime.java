@@ -17,15 +17,27 @@ public class getTime {
 	private static String remainTime=null;
 	private static String[] timeList=new String[10];
 	private static String yMd,Hms;//年月日，时分秒
-
+	private static Map<String,String> nameToClass=new TreeMap<String, String>();;
+	//创建姓名到班级的词典
+	
+	public static void initNameToClass() {
+		nameToClass.put("va","1610107");
+		nameToClass.put("vb","1610108");
+		nameToClass.put("vc","1610109");
+		nameToClass.put("vd","151105");
+		nameToClass.put("ve","151106");
+		nameToClass.put("vf","151107");
+		//对6个vip进行赋值
+	}
+	
 	
 	
 	public static void calWeekAndDay(String askTime) throws ParseException {
 		yMd =askTime.split(" ")[0];
 		Hms=askTime.split(" ")[1];
-		System.out.println(askTime);
-		System.out.println(yMd);
-		System.out.println(Hms);
+//		System.out.println(askTime);
+//		System.out.println(yMd);
+//		System.out.println(Hms);
 		yMd=yMd.replace("年", "-");
 		yMd=yMd.replace("月", "-");
 		yMd=yMd.replace("日", "-");
@@ -50,21 +62,30 @@ public class getTime {
 	 * @param className
 	 * @throws ParseException
 	 */
-	public static void calTimeList(String className,String askTime) throws ParseException {
+	public static void calTimeList(String name,String askTime) throws ParseException {
+		String className=null;
 		calWeekAndDay(askTime);
+		System.out.println("第几周："+weekNum);
+		System.out.println("周几："+dayOfWeek);
+
 		if(dayOfWeek==6||dayOfWeek==7)
 			return;
 		String[] weekList= new String[5];
 		Course aCourse = new Course();
-
-		
-//		System.out.println("className1:"+className);
+		if(nameToClass.containsKey(name)) {
+			className=nameToClass.get(name);
+		}else {
+			System.out.println("没有这个人");
+		}
+		System.out.println("className:"+className);
 		if (readFile.courseMap.containsKey(className)) {
 			weekList=readFile.courseMap.get(className);
 			
 		}
 //		为timeList赋值
-		init();
+		for(int i=0;i<timeList.length;i++) {
+			timeList[i]=null;
+		}//初始化
 		if(dayOfWeek>5||dayOfWeek<1)
 			return;
 		if(contained(weekList[Course.getIndex(dayOfWeek, 1)])) {
@@ -115,8 +136,14 @@ public class getTime {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String calRemainTime(String className,String askTime) throws ParseException {
-		calTimeList(className,askTime);
+	public static String calRemainTime(String name,String askTime) throws ParseException {
+		calTimeList(name,askTime);
+		
+		//输出验证当天课表
+		System.out.println("当天上课时间列表：");
+		for(int i=0;i<10;i++)
+			System.out.println(timeList[i]);
+		
 		if(dayOfWeek==6||dayOfWeek==7)
 			return "VIP occupied";
 		SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
@@ -155,12 +182,7 @@ public class getTime {
 	}
 	
 	
-	public static void init() {//初始化上课时间
-		for(int i=2;i<timeList.length;i++) {
-			timeList[i]=null;
-		}
-	}
-	
+
 	/**
 	 * 正常的上课时间：
 	 * 一(0,1)："08:00:00"-"09:40:00";
@@ -180,11 +202,11 @@ public class getTime {
 	
 	//测试
 	public static void main(String[] args) throws ParseException {
-		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date1 = new Date();
-		String sdate1="2019-05-04 13:15:14";
-		String className="151101";
-		calRemainTime(className,sdate1);
+		initNameToClass();//初始化<姓名，班级>
+		readFile.readFile(readFile.sourceFile);//初始化表格数据
+		String askTime="2019年05月07日 10:30:00";
+		String name="va";
+		System.out.println(calRemainTime(name,askTime));
 	
 	}
 
