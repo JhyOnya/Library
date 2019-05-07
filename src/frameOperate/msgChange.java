@@ -50,7 +50,7 @@ public class msgChange {
 		int r = room + 1;
 		int s = seat + 1;
 		getOrder(name + "，您的座位是：\n   教室" + r + ",座位" + s + "！\n   已自动退出");
-		name=name.replace("尊敬的VIP用户", "").trim();
+		name = name.replace("尊敬的VIP用户", "").trim();
 		Seat.selectSeat(room, seat, name);
 		((JButton) mainFrame.panel.getComponent(seat)).setEnabled(false);
 		((JButton) mainFrame.panel.getComponent(seat)).setText("使用中：" + name);

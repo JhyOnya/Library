@@ -23,27 +23,34 @@ public class Seat {
 	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
 		// 初始化
+		if (seats == null)
+			seats = new TreeMap<Integer, Map<Integer, String>>();
 		vipNames = new TreeMap<String, int[]>();
 		vipUsingSeats = new TreeMap<Integer, Map<Integer, String>>();
 		vipEmptySeats = new TreeMap<Integer, Map<Integer, String>>();
 
 		// 普通用户的选座，init完善后可删除
-		selectSeat(0, 15, "aaa");
-		selectSeat(1, 2, "d");
-		selectSeat(1, 3, "e");
-		selectSeat(2, 3, "f");
-
+//		selectSeat(0, 15, "aaa");
+//		selectSeat(1, 2, "d");
+//		selectSeat(1, 3, "e");
+//		selectSeat(2, 3, "f");
 		// 添加time时没有课的VIP
-		addUsingVIP(1, 6, "va");
-		addUsingVIP(0, 3, "vb");
-		addUsingVIP(2, 3, "vc");
-
+//		addUsingVIP(1, 6, "va");
+//		addUsingVIP(0, 3, "vb");
+//		addUsingVIP(2, 3, "vc");
 		// 添加time时有课的VIP
-		addEmptyVIP(1, 5, "vd");
-		addEmptyVIP(0, 4, "ve");
-		addEmptyVIP(2, 4, "vf");
-		
+//		addEmptyVIP(1, 5, "vd");
+//		addEmptyVIP(0, 4, "ve");
+//		addEmptyVIP(2, 4, "vf");
+
 		getTime.initNameToClass();
+		for (String name : getTime.nameToClass.keySet()) {
+			if (getSeatTime(name, time) == "0") {
+				addUsingVIP(getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1], name);
+			} else {
+				addEmptyVIP(getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1], name);
+			}
+		}
 
 		System.out.println(seats);
 		System.out.println(vipUsingSeats);
@@ -52,8 +59,9 @@ public class Seat {
 
 	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
 	public static String getSeatTime(String name, String askTime) {
+		System.out.println(askTime);
+//		return askTime;
 		return getTime.calRemainTime(name, askTime);
-
 //		return (askTime.substring(askTime.indexOf(":") + 1));
 	}
 

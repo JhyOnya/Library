@@ -300,7 +300,7 @@ public class mainFrame extends JFrame {
 		loginBt.setContentAreaFilled(false);
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
-		
+
 		msgChange.refresh();
 	}
 
