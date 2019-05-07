@@ -10,72 +10,72 @@ import java.util.regex.Pattern;
 public class Course {
 
 	public static Map<String, String[]> courseMap;
-	// ×¨ÒµºÅ ÖÜ¼¸ ¿ªÊ¼½Ú/½áÊø½Ú/ÉÏ¿ÎÖÜ È«²¿ÊÇ×Ö·û´®
+	// ä¸“ä¸šå· å‘¨å‡  å¼€å§‹èŠ‚/ç»“æŸèŠ‚/ä¸Šè¯¾å‘¨ å…¨éƒ¨æ˜¯å­—ç¬¦ä¸²
 	public static String[] classWeek;
-	// ¿Î³ÌÊ±¼äĞÅÏ¢ Ã¿ÖÜÎåÌì ÖÜAÖĞÃ¿½ÚµÄÉÏ¿ÎÖÜ
-	public static String majorNum; // ×¨ÒµºÅ
+	// è¯¾ç¨‹æ—¶é—´ä¿¡æ¯ æ¯å‘¨äº”å¤© å‘¨Aä¸­æ¯èŠ‚çš„ä¸Šè¯¾å‘¨
+	public static String majorNum; // ä¸“ä¸šå·
 
-	public static void init(List<String> aString) { // ³õÊ¼»¯º¯Êı
+	public static void init(List<String> aString) { // åˆå§‹åŒ–å‡½æ•°
 		courseMap = new TreeMap<String, String[]>();
 		classWeek = new String[25];
-		getMajorNum(aString.get(0)); // 0ÎªµÚÒ»¸ñ 1-26Îª¿Î³Ì
-		//System.out.println("×¨ÒµºÅÎª£º" + majorNum);
- 		for (int i = 1; i < aString.size() ; i++) { // size´óĞ¡Îª27
+		getMajorNum(aString.get(0)); // 0ä¸ºç¬¬ä¸€æ ¼ 1-26ä¸ºè¯¾ç¨‹
+		//System.out.println("ä¸“ä¸šå·ä¸ºï¼š" + majorNum);
+ 		for (int i = 1; i < aString.size() ; i++) { // sizeå¤§å°ä¸º27
 			classWeek[i-1] = solveOneClass(aString.get(i));
-			addCourseMap(majorNum, classWeek);// ¸ø×¨ÒµºÅA£¬ĞÇÆÚxµÄÌìÊı£¬¼ÓÉÏÆäÒ»ÌìµÄ¿Î
+			addCourseMap(majorNum, classWeek);// ç»™ä¸“ä¸šå·Aï¼Œæ˜ŸæœŸxçš„å¤©æ•°ï¼ŒåŠ ä¸Šå…¶ä¸€å¤©çš„è¯¾
 		}
 	}
 
-	public static String solveOneClass(String classStrings) { // »ñµÃÄ³Ò»¸ñ×ÓµÄ¿Î³ÌĞÅÏ¢
+	public static String solveOneClass(String classStrings) { // è·å¾—æŸä¸€æ ¼å­çš„è¯¾ç¨‹ä¿¡æ¯
 		String aString = "";
-		if (classStrings.isEmpty()) { // Õâ½ÚÃ»¿Î
-			aString = "¿Õ";
+		if (classStrings.isEmpty()) { // è¿™èŠ‚æ²¡è¯¾
+			aString = null;
 			return aString;
 		} else {
 			String[] aStrings = classStrings.split("\\n");
 			// 5 10 15
-			// 4 9 14 [1-15,17-18ÖÜ,µ¥ÖÜ][1-2½Ú]
+			// 4 9 14 [1-15,17-18å‘¨,å•å‘¨][1-2èŠ‚]
 			for (int j = 1; j <= (aStrings.length) / 5; j++) {
 				String a = aStrings[j * 5 - 1];
-				// System.out.println("·Ö¸îºóµÄÄÚÈİÎª£º" + a); // [1-15,17-18ÖÜ,µ¥ÖÜ][1-2½Ú]
+				// System.out.println("åˆ†å‰²åçš„å†…å®¹ä¸ºï¼š" + a); // [1-15,17-18å‘¨,å•å‘¨][1-2èŠ‚]
 				String[] aa = a.split("\\]");
-				// System.out.println("µÚ¶ş´Î·Ö¸îºó½á¹û£º" + aa[0]+" "+aa[1]);
+				// System.out.println("ç¬¬äºŒæ¬¡åˆ†å‰²åç»“æœï¼š" + aa[0]+" "+aa[1]);
 				String b = aa[0].substring(1, aa[0].length());
 				aString = addOneClass(b) + aString;
 			}
 			aString = aString.substring(0, aString.length() - 1);
-			// System.out.println("±¾ÖÜÓĞ¿ÎµÄÖÜÊıÎª£º"+aString);//±¾ÖÜÓĞ¿ÎµÄÖÜÊıÎª£º1,3,5,7,9,11,2,4,6,8,10,12,14,16,18
+			// System.out.println("æœ¬å‘¨æœ‰è¯¾çš„å‘¨æ•°ä¸ºï¼š"+aString);//æœ¬å‘¨æœ‰è¯¾çš„å‘¨æ•°ä¸ºï¼š1,3,5,7,9,11,2,4,6,8,10,12,14,16,18
 			return aString;
 		}
 
 	}
 
-	public static String addOneClass(String a) { // »ñµÃ"1-15,17-18ÖÜ,µ¥ÖÜ"ÀàĞÍ×Ö·û´®£¬È·¶¨ÆäÊ¹ÓÃÖÜÊı
-													// System.out.println("ÕıÔÚÌí¼Ó¿Î³ÌĞÅÏ¢¡­¡­");
+	public static String addOneClass(String a) { // è·å¾—"1-15,17-18å‘¨,å•å‘¨"ç±»å‹å­—ç¬¦ä¸²ï¼Œç¡®å®šå…¶ä½¿ç”¨å‘¨æ•°
+													// System.out.println("æ­£åœ¨æ·»åŠ è¯¾ç¨‹ä¿¡æ¯â€¦â€¦");
 		String oneClassString = "";
 		List<Integer> lst = new ArrayList<Integer>();
 		int flag = 0;
 		String[] numString = a.split(",");
 		int num = numString.length;
-		if (a.contains("µ¥ÖÜ")) {
+		if (a.contains("å•å‘¨")) {
 			flag = 1;
 			num--;
-		} else if (a.contains("Ë«ÖÜ")) {
+		} else if (a.contains("åŒå‘¨")) {
 			flag = 2;
 			num--;
-		} // num¼ÆÊıÆä³¤¶È Èô×îºóÓĞµ¥Ë«ÖÜÔò-1£¬·ñÔò²»±ä
-		for (int i = 0; i < num; i++) { // numString 1-15 16 17-18 19ÖÜ µ¥ÖÜ
-			if (numString[i].contains("-")) { // ÎªA-B¸ñÊ½
-				String[] numString2 = numString[i].split("-"); // È¥µô - ·ûºÅ
+		} // numè®¡æ•°å…¶é•¿åº¦ è‹¥æœ€åæœ‰å•åŒå‘¨åˆ™-1ï¼Œå¦åˆ™ä¸å˜
+		for (int i = 0; i < num; i++) { // numString 1-15 16 17-18 19å‘¨ å•å‘¨
+			if (numString[i].contains("-")) { // ä¸ºA-Bæ ¼å¼
+				String[] numString2 = numString[i].split("-"); // å»æ‰ - ç¬¦å·
 
-				if (numString2[1].contains("ÖÜ")) // 3-5,7ÖÜ
+				if (numString2[1].contains("å‘¨")) // 3-5,7å‘¨
 					numString2[1] = numString2[1].substring(0, numString2[1].length() - 1);
 				List<Integer> lst1 = new ArrayList<Integer>();
 				lst1 = getNum(numString2[0], numString2[1], flag);
 				lst.addAll(lst1);
-			} else { // ²»ÎªA-B¸ñÊ½ 17ÖÜ / 6 ÕâÖÖ
+			} else { // ä¸ä¸ºA-Bæ ¼å¼ 17å‘¨ / 6 è¿™ç§
 				String aString = numString[i];
-				if (aString.contains("ÖÜ"))
+				if (aString.contains("å‘¨"))
 					aString = aString.substring(0, aString.length() - 1);
 				lst.add(changeToInt(aString));
 			}
@@ -85,26 +85,26 @@ public class Course {
 		}
 		// oneClassString = oneClassString.substring(0, oneClassString.length()
 		// - 1); //
-		// Êä³ö1,3,5,7,9,11,13,15,17
+		// è¾“å‡º1,3,5,7,9,11,13,15,17
 		// System.out.println(oneClassString);
-		// System.out.println("¿Î³ÌĞÅÏ¢Ìí¼ÓÍê±Ï");
+		// System.out.println("è¯¾ç¨‹ä¿¡æ¯æ·»åŠ å®Œæ¯•");
 		return oneClassString;
 	}
 
-	// ×¨ÒµºÅ
+	// ä¸“ä¸šå·
 	public static void getMajorNum(String numString) {
 		majorNum = numString.replaceAll("\\D+", "");
 	}
 	
-	public static int getIndex(int x,int jieshu) {//ÊäÈëµÄÊÇÖÜ¼¸£¬·¶Î§1-5,×ª»»Îª´óĞ¡Îª25Êı×éµÄË÷Òı ÖÜÒ»µÚÒ»½Ú  1 1Ë÷ÒıÎª0
+	public static int getIndex(int x,int jieshu) {//è¾“å…¥çš„æ˜¯å‘¨å‡ ï¼ŒèŒƒå›´1-5,è½¬æ¢ä¸ºå¤§å°ä¸º25æ•°ç»„çš„ç´¢å¼• å‘¨ä¸€ç¬¬ä¸€èŠ‚  1 1ç´¢å¼•ä¸º0
 		int a=0;
 		if(x>5||x<1)
-			System.out.println("ÊäÈë²»ºÏ·¨");
+			System.out.println("è¾“å…¥ä¸åˆæ³•");
 		a=5*(x-1)+jieshu-1;
 		return a;
 	}
 	
-	public static void addCourseMap(String majorNum, String[] aStrings) { // Ôö¼ÓcourseÀà¼°ÆäÖĞÄÚÈİ
+	public static void addCourseMap(String majorNum, String[] aStrings) { // å¢åŠ courseç±»åŠå…¶ä¸­å†…å®¹
 		if (courseMap == null)
 			courseMap = new TreeMap<String, String[]>();
 
@@ -113,13 +113,13 @@ public class Course {
 		}
 	}
 	
-	public static List<Integer> getNum(String a, String b, int flag) { // ·µ»ØaºÍbÖ®égµÄ”µ×Ölist
+	public static List<Integer> getNum(String a, String b, int flag) { // è¿”å›aå’Œbä¹‹é–“çš„æ•¸å­—list
 		String numString = "";
 		List<Integer> lst = new ArrayList<Integer>();
 		int numA = changeToInt(a);
 		int numB = changeToInt(b);
 		for (int i = numA; i <= numB; i++) {
-			if (flag == 1)// µ¥ÖÜ
+			if (flag == 1)// å•å‘¨
 			{
 				if (i % 2 != 0)
 					lst.add(i);
@@ -133,7 +133,7 @@ public class Course {
 		return lst;
 	}
 
-	public static int changeToInt(String a) { // Œ¢×Ö·û´®¸Äé”µ×Ö ÀıÈç£º ×Ö·û´®¡°12¡±×ƒé”µ×Ö12
+	public static int changeToInt(String a) { // å°‡å­—ç¬¦ä¸²æ”¹ç‚ºæ•¸å­— ä¾‹å¦‚ï¼š å­—ç¬¦ä¸²â€œ12â€è®Šç‚ºæ•¸å­—12
 		char[] aChars = a.toCharArray();
 		int num = 0;
 		int count = 0;
@@ -150,149 +150,149 @@ public class Course {
 	}
 	
 	public static void main(String[] args) {
-		// ²âÊÔÓÃ ¿ÉÉ¾
+		// æµ‹è¯•ç”¨ å¯åˆ 
 		List<String> aList=new ArrayList<String>();
-		aList.add("ÂÃĞĞÉç151106\\r");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…è¡Œç¤¾151106\\r");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[1ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[1å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[2ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[2å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[3ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[3å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[4ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[4å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[5ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[5å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[6ÖÜ][1-2½Ú]");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[6å‘¨][1-2èŠ‚]");
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[7ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[7å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[8ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[8å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[9ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[9å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[10ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[10å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[11ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[11å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[12ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[12å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[13ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[13å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[14ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[14å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[15ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[15å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[16ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[16å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[17ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[17å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[18ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[18å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[19ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[19å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[20ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[20å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[21ÖÜ][1-2½Ú]\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[21å‘¨][1-2èŠ‚]\r\n" + 
 				"\r\n");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[22ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[22å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[23ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[23å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[24ÖÜ][1-2½Ú]");
-		aList.add("\\ÂÃÓÎÆóÒµÕ½ÂÔ¹ÜÀí\r\n" + 
-				"ÀîÎ¬¸ı\r\n" + 
+				"151105-06[66äºº]\r\n" + 
+				"[24å‘¨][1-2èŠ‚]");
+		aList.add("\\æ—…æ¸¸ä¼ä¸šæˆ˜ç•¥ç®¡ç†\r\n" + 
+				"æç»´åºš\r\n" + 
 				"LY231\r\n" + 
-				"151105-06[66ÈË]\r\n" + 
-				"[25ÖÜ][1-2½Ú]");
+				"151105-06[66äºº]\r\n" + 
+				"[25å‘¨][1-2èŠ‚]");
 		
 		init(aList);
 		String [] aStrings1=new String[25];
