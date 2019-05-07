@@ -96,7 +96,6 @@ public class mainFrame extends JFrame {
 
 		preTime = new JTextField();
 		new Thread(new preTime()).start();
-		preTime.setText("2019\u5E7404\u670825\u65E5 10:31:28");
 		preTime.setOpaque(false);
 		preTime.setEditable(false);
 		preTime.setColumns(10);
@@ -301,6 +300,7 @@ public class mainFrame extends JFrame {
 		loginBt.setContentAreaFilled(false);
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
+		
 		msgChange.refresh();
 	}
 

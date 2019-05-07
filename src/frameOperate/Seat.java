@@ -42,6 +42,8 @@ public class Seat {
 		addEmptyVIP(1, 5, "vd");
 		addEmptyVIP(0, 4, "ve");
 		addEmptyVIP(2, 4, "vf");
+		
+		getTime.initNameToClass();
 
 		System.out.println(seats);
 		System.out.println(vipUsingSeats);
@@ -50,8 +52,7 @@ public class Seat {
 
 	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
 	public static String getSeatTime(String name, String askTime) {
-		return askTime;
-//		return getTime.calRemainTime(name, askTime);
+		return getTime.calRemainTime(name, askTime);
 
 //		return (askTime.substring(askTime.indexOf(":") + 1));
 	}

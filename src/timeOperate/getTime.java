@@ -136,48 +136,53 @@ public class getTime {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String calRemainTime(String name,String askTime) throws ParseException {
-		calTimeList(name,askTime);
-		
-		//输出验证当天课表
-		System.out.println("当天上课时间列表：");
-		for(int i=0;i<10;i++)
-			System.out.println(timeList[i]);
-		
-		if(dayOfWeek==6||dayOfWeek==7)
-			return "VIP occupied";
-		SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
-		Date askT=ft.parse(Hms);
-		if(timeList[0]!=null&&askT.before(ft.parse(timeList[0]))) {
-			return "VIP occupied";
-		}
-		else if(timeList[9]!=null&&ft.parse(timeList[0]).before(askT)) {
-			return "VIP occupied";
-		}
-		else {
+	public static String calRemainTime(String name,String askTime) {
+		try {
+			calTimeList(name,askTime);
 			
-			for(int i=1;i<timeList.length;i++) {
-				if(timeList[i]!=null) {
-					Date time2=ft.parse(timeList[i]);
-					if(askT.before(time2)) {//找到了
-						if(i%2==1) {//正在上课
-//							System.out.println(i);
-							long diff=time2.getTime()-askT.getTime();
-							long hour=(diff/(60*60*1000));
-							long min=((diff-hour*60*60*1000)/(60*1000));
-							long sec=((diff-hour*60*60*1000-min*60*1000)/1000);
-							remainTime="remain:"+hour+":"+min+":"+sec;
-							return remainTime;
-						}
-						else {
-							return "VIP occupied";
-						}
-						
-					}
-				}
-				
+			//输出验证当天课表
+			System.out.println("当天上课时间列表：");
+			for(int i=0;i<10;i++)
+				System.out.println(timeList[i]);
+			
+			if(dayOfWeek==6||dayOfWeek==7)
+				return "VIP occupied";
+			SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
+			Date askT=ft.parse(Hms);
+			if(timeList[0]!=null&&askT.before(ft.parse(timeList[0]))) {
+				return "VIP occupied";
 			}
-			return "VIP occupied";
+			else if(timeList[9]!=null&&ft.parse(timeList[0]).before(askT)) {
+				return "VIP occupied";
+			}
+			else {
+				
+				for(int i=1;i<timeList.length;i++) {
+					if(timeList[i]!=null) {
+						Date time2=ft.parse(timeList[i]);
+						if(askT.before(time2)) {//找到了
+							if(i%2==1) {//正在上课
+//								System.out.println(i);
+								long diff=time2.getTime()-askT.getTime();
+								long hour=(diff/(60*60*1000));
+								long min=((diff-hour*60*60*1000)/(60*1000));
+								long sec=((diff-hour*60*60*1000-min*60*1000)/1000);
+								remainTime="remain:"+hour+":"+min+":"+sec;
+								return remainTime;
+							}
+							else {
+								return "VIP occupied";
+							}
+							
+						}
+					}
+					
+				}
+				return "VIP occupied";
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			return "未知";
 		}
 	}
 	
