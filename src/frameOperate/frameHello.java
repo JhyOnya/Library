@@ -33,7 +33,6 @@ public class frameHello extends JFrame {
 					hello = new frameHello();
 					hello.setUndecorated(true);// 去除边框
 					hello.setVisible(true);
-					readFile.readFile(readFile.sourceFile);// 初始化表格数据
 				} catch (Exception e) {
 					e.printStackTrace();
 				} catch (Throwable e) {

@@ -95,7 +95,6 @@ public class mainFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		preTime = new JTextField();
-		new Thread(new preTime()).start();
 		preTime.setOpaque(false);
 		preTime.setEditable(false);
 		preTime.setColumns(10);
@@ -301,7 +300,8 @@ public class mainFrame extends JFrame {
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
 
-		msgChange.refresh();
+		Seat.init();
+		new Thread(new preTime()).start();
 	}
 
 	public static void refreshTime(String str) {

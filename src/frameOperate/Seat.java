@@ -21,12 +21,9 @@ public class Seat {
 	public static Map<Integer, Map<Integer, String>> vipEmptySeats;// <1,<3,lih>>,教室1座位3是lih暂时不用的的vip座位
 	public static Map<Integer, Map<Integer, String>> seats;// 当前座位信息<教室，<座位，姓名>>，仅限当前使用
 
-	// 待完善，根据时间初始化所有信息
+	// 根据时间初始化所有信息
 	public static void init(String time) {
 		// 初始化
-		if (seats == null)
-			seats = new TreeMap<Integer, Map<Integer, String>>();
-		vipNames = new TreeMap<String, int[]>();
 		vipUsingSeats = new TreeMap<Integer, Map<Integer, String>>();
 		vipEmptySeats = new TreeMap<Integer, Map<Integer, String>>();
 
@@ -44,8 +41,6 @@ public class Seat {
 //		addEmptyVIP(0, 4, "ve");
 //		addEmptyVIP(2, 4, "vf");
 
-		getTime.initNameToClass();
-		readFile.readFile(readFile.sourceFile);// 初始化表格数据
 		for (String name : getTime.nameToClass.keySet()) {
 			if (getSeatTime(name, time) == "0") {
 				addUsingVIP(getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1], name);
@@ -53,13 +48,23 @@ public class Seat {
 				addEmptyVIP(getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1], name);
 			}
 		}
-
-		System.out.println(seats);
-		System.out.println(vipUsingSeats);
-		System.out.println(vipEmptySeats);
+//		System.out.println(seats);
+//		System.out.println(vipUsingSeats);
+//		System.out.println(vipEmptySeats);
 	}
 
-	// 待完善，计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
+	public static void init() {
+		// 初始化
+		seats = new TreeMap<Integer, Map<Integer, String>>();
+		getTime.initNameToClass();
+		readFile.readFile(readFile.sourceFile);// 初始化表格数据
+		vipNames = new TreeMap<String, int[]>();
+		for (String name : getTime.nameToClass.keySet()) {
+			vipNames.put(name, new int[] { getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1] });
+		}
+	}
+
+	// 计算给定时间距离某同学下课时间，这里应该只会查询到上课中的同学，如果有没课的同学被查询到，则是座位添加时出现问题
 	public static String getSeatTime(String name, String askTime) {
 		System.out.println(askTime);
 //		return askTime;
@@ -81,7 +86,6 @@ public class Seat {
 		if (vipUsingSeats.get(room) == null)
 			vipUsingSeats.put(room, new TreeMap<Integer, String>());
 		vipUsingSeats.get(room).put(seat, name);
-		vipNames.put(name, new int[] { room, seat });
 	}
 
 	// 新建VIP。参数：教室+座位号+姓名。
@@ -91,7 +95,6 @@ public class Seat {
 		if (vipEmptySeats.get(room) == null)
 			vipEmptySeats.put(room, new TreeMap<Integer, String>());
 		vipEmptySeats.get(room).put(seat, name);
-		vipNames.put(name, new int[] { room, seat });
 	}
 
 	// 是否是VIP。参数：教室+座位号+姓名
