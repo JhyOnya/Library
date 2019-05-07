@@ -8,13 +8,13 @@ public class preTime implements Runnable {
 	public void run() {
 		SimpleDateFormat dtFmt = new SimpleDateFormat("yyyyƒÍMM‘¬dd»’ HH:mm:ss");
 		while (true) {
+			mainFrame.refreshTime(dtFmt.format(new Date()));
+			msgChange.refresh();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			mainFrame.refreshTime(dtFmt.format(new Date()));
-			msgChange.refresh();
 		}
 	}
 }
