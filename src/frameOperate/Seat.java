@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import excelOperate.readFile;
 import timeOperate.getTime;
 
 public class Seat {
@@ -23,6 +24,8 @@ public class Seat {
 	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
 		// 初始化
+		if (seats == null)
+			seats = new TreeMap<Integer, Map<Integer, String>>();
 		vipNames = new TreeMap<String, int[]>();
 		vipUsingSeats = new TreeMap<Integer, Map<Integer, String>>();
 		vipEmptySeats = new TreeMap<Integer, Map<Integer, String>>();
@@ -42,6 +45,7 @@ public class Seat {
 //		addEmptyVIP(2, 4, "vf");
 
 		getTime.initNameToClass();
+		readFile.readFile(readFile.sourceFile);// 初始化表格数据
 		for (String name : getTime.nameToClass.keySet()) {
 			if (getSeatTime(name, time) == "0") {
 				addUsingVIP(getTime.nameToSeat.get(name)[0], getTime.nameToSeat.get(name)[1], name);
@@ -65,8 +69,6 @@ public class Seat {
 
 	// 选择座位。参数：教室+座位号
 	public static void selectSeat(int room, int seat, String name) {
-		if (seats == null)
-			seats = new TreeMap<Integer, Map<Integer, String>>();
 		if (seats.get(room) == null)
 			seats.put(room, new TreeMap<Integer, String>());
 		seats.get(room).put(seat, name);

@@ -32,8 +32,8 @@ public class getTime {
 		nameToSeat.put("vb", new int[] { 0, 5 });
 		nameToSeat.put("vc", new int[] { 0, 9 });
 		nameToSeat.put("vd", new int[] { 1, 2 });
-		nameToSeat.put("ve", new int[] { 3, 2 });
-		nameToSeat.put("vf", new int[] { 2, 2 });
+		nameToSeat.put("ve", new int[] { 3, 4 });
+		nameToSeat.put("vf", new int[] { 2, 1 });
 		// 对6个vip进行赋值
 	}
 
