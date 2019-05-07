@@ -23,8 +23,6 @@ public class Seat {
 	// 待完善，根据时间初始化所有信息
 	public static void init(String time) {
 		// 初始化
-		if (seats == null)
-			seats = new TreeMap<Integer, Map<Integer, String>>();
 		vipNames = new TreeMap<String, int[]>();
 		vipUsingSeats = new TreeMap<Integer, Map<Integer, String>>();
 		vipEmptySeats = new TreeMap<Integer, Map<Integer, String>>();
@@ -76,21 +74,21 @@ public class Seat {
 
 	// 新建VIP。参数：教室+座位号+姓名。
 	public static void addUsingVIP(int room, int seat, String name) {
-		vipUsingSeats.put(room, new TreeMap<Integer, String>() {
-			{
-				put(seat, name);
-			}
-		});
+		if (vipUsingSeats == null)
+			vipUsingSeats = new TreeMap<Integer, Map<Integer, String>>();
+		if (vipUsingSeats.get(room) == null)
+			vipUsingSeats.put(room, new TreeMap<Integer, String>());
+		vipUsingSeats.get(room).put(seat, name);
 		vipNames.put(name, new int[] { room, seat });
 	}
 
 	// 新建VIP。参数：教室+座位号+姓名。
 	public static void addEmptyVIP(int room, int seat, String name) {
-		vipEmptySeats.put(room, new TreeMap<Integer, String>() {
-			{
-				put(seat, name);
-			}
-		});
+		if (vipEmptySeats == null)
+			vipEmptySeats = new TreeMap<Integer, Map<Integer, String>>();
+		if (vipEmptySeats.get(room) == null)
+			vipEmptySeats.put(room, new TreeMap<Integer, String>());
+		vipEmptySeats.get(room).put(seat, name);
 		vipNames.put(name, new int[] { room, seat });
 	}
 

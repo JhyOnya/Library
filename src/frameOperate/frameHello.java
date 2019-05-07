@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
 
+import excelOperate.readFile;
+
 public class frameHello extends JFrame {
 	int x, y;
 	static frameHello hello;
@@ -31,6 +33,7 @@ public class frameHello extends JFrame {
 					hello = new frameHello();
 					hello.setUndecorated(true);// 去除边框
 					hello.setVisible(true);
+					readFile.readFile(readFile.sourceFile);// 初始化表格数据
 				} catch (Exception e) {
 					e.printStackTrace();
 				} catch (Throwable e) {

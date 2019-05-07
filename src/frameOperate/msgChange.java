@@ -67,7 +67,11 @@ public class msgChange {
 	}
 
 	public static void refresh() {
-		Seat.init(preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText());
+		String opTime=preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText();
+		if(opTime.length()==0)
+			return;
+		
+		Seat.init(opTime);
 		int room = mainFrame.chooseRoom.getSelectedIndex();
 		// 重置的座位
 		for (int i = 0; i < Seat.seatNum; i++) {

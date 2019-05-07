@@ -38,6 +38,7 @@ public class getTime {
 	}
 
 	public static void calWeekAndDay(String askTime) throws ParseException {
+		System.out.println("askTime:"+askTime);
 		yMd = askTime.split(" ")[0];
 		Hms = askTime.split(" ")[1];
 //		System.out.println(askTime);
@@ -152,7 +153,7 @@ public class getTime {
 				System.out.println(timeList[i]);
 
 			if (dayOfWeek == 6 || dayOfWeek == 7)
-				return "VIP occupied";
+				return "0";
 			SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
 			Date askT = ft.parse(Hms);
 			if (timeList[0] != null && askT.before(ft.parse(timeList[0]))) {
