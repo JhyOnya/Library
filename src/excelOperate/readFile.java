@@ -10,13 +10,13 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
-//¶ÁÈ¡csvÎÄ¼ş£¬´ÓµÚÎåĞĞ¿ªÊ¼¶ÁÈ¡¿Î³Ì×Ü±íÖĞĞÅÏ¢111
+//è¯»å–csvæ–‡ä»¶ï¼Œä»ç¬¬äº”è¡Œå¼€å§‹è¯»å–è¯¾ç¨‹æ€»è¡¨ä¸­ä¿¡æ¯111
 public class readFile
 { 
 	public static Map<String, String[]> courseMap;
 	// public static List<Course> courses = new ArrayList<Course>();
-	static String sourceFile = "¿Î³Ì×Ü±í.xls"; // Ô´ÎÄ¼ş
-	// ¶ÁÈ¡Ô´ÎÄ¼ş
+	public static String sourceFile = "è¯¾ç¨‹æ€»è¡¨.xls"; // æºæ–‡ä»¶
+	// è¯»å–æºæ–‡ä»¶
 
 	public static void readFile(String fileNameString)
 	{
@@ -25,20 +25,20 @@ public class readFile
 		try
 		{
 			Workbook book = Workbook.getWorkbook(new File(fileNameString));
-			// »ñÈ¡µÚÒ»¸ö¹¤×÷±í
+			// è·å–ç¬¬ä¸€ä¸ªå·¥ä½œè¡¨
 			Sheet sheet = book.getSheet(0);
 			int rows = sheet.getRows();
 			int cols = sheet.getColumns();
 			for (int i = 4; i < sheet.getRows()-1; i++)
 			{
-				 // ¼ÓÈëÒ»ĞĞµÄ¿Î
+				 // åŠ å…¥ä¸€è¡Œçš„è¯¾
 				List<String> lineString = new ArrayList<String>();
 				for (int j = 0; j < sheet.getColumns()-1; j++)
 				{
 					Cell cell = sheet.getCell(j, i);
 					lineString.add(cell.getContents());
 				}
-				e.init(lineString); // ³õÊ¼»¯Ä³¸ö×¨ÒµµÄ¿Î³Ì ¼´Ò»ĞĞ
+				e.init(lineString); // åˆå§‹åŒ–æŸä¸ªä¸“ä¸šçš„è¯¾ç¨‹ å³ä¸€è¡Œ
 				courseMap.putAll(e.courseMap);		
 			}
 			book.close();
@@ -56,10 +56,10 @@ public class readFile
 		Course aCourse = new Course();
 		if (courseMap.containsKey("1720102"))
 		{
-			courseMap.get("Ó¢Óï1720102");
-			// System.out.println(courseMap.get("Ó¢Óï1720102"));
+			courseMap.get("è‹±è¯­1720102");
+			// System.out.println(courseMap.get("è‹±è¯­1720102"));
 			courseMap.get("1720102");
-			aStrings=courseMap.get("1720101");//ÒÔÏÂÊä³ö´ú±í ÖÜÒ»µÄ12345½Ú¿Î
+			aStrings=courseMap.get("1720101");//ä»¥ä¸‹è¾“å‡ºä»£è¡¨ å‘¨ä¸€çš„12345èŠ‚è¯¾
 			System.out.println(aStrings[Course.getIndex(1, 1)]);
 			System.out.println(aStrings[Course.getIndex(1, 2)]);
 			System.out.println(aStrings[Course.getIndex(1, 3)]);
