@@ -18,6 +18,13 @@
 <br> (String类型)time时  有课的VIP  : EmptyVIP
 
 ### 如果有问题就在上面写，这个就置顶了，其他日志进度更新从下面开始↓
+### 0507更改——成一铭
+<br>1、excelOperate->Course.java ，将"空"更改为null
+<br>2、excelOperate->readFile.java ，第18行static String sourceFile = "课程总表.xls"; 前面添加了public便于调用
+<br>3、timeOperate->getTime.java，添加了nameToClass字典，表示<vip姓名，vip班级>。计算剩余时间的接口是calRemainTime(String name,String askTime)
+<br>4、excelOperate->Course.java可能打开时候会乱码，得用utf-8打开才行，因为其中有中文，如果乱码会导致没法正常读，参考链接：https://blog.csdn.net/llqqxf/article/details/79358723
+
+
 ### 0505更改，姜弘扬
 <br>1、由于UI界面不关心班级问题，所以姓名班级的map请写到自己的部分
 <br>2、Seat.java中的init()仅做测试，请提供用户列表信息的调用接口，届时再做修改
