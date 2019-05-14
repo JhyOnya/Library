@@ -63,6 +63,7 @@ public class mainFrame extends JFrame {
 	static JPanel panel;
 	static JTextField chsTime;
 	private JButton chsBtn;
+	private static JTextField preTime1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -235,8 +236,8 @@ public class mainFrame extends JFrame {
 		sexGroup.add(chsTimeRBt);
 
 		chsTime = new JTextField();
+		chsTime.setBackground(new Color(220, 220, 255));
 		chsTime.setText("2019\u5E7404\u670825\u65E5 10:31:28");
-		chsTime.setOpaque(false);
 		chsTime.setColumns(10);
 		chsTime.setBorder(null);
 		chsTime.setBounds(82, 67, 148, 21);
@@ -299,12 +300,21 @@ public class mainFrame extends JFrame {
 		loginBt.setContentAreaFilled(false);
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
+		
+		preTime1 = new JTextField();
+		preTime1.setOpaque(false);
+		preTime1.setEditable(false);
+		preTime1.setColumns(10);
+		preTime1.setBorder(null);
+		preTime1.setBounds(354, 10, 181, 21);
+		contentPane.add(preTime1);
 
 		Seat.init();
 		new Thread(new preTime()).start();
 	}
 
-	public static void refreshTime(String str) {
-		preTime.setText(str);
+	public static void refreshTime(String str1,String str2) {
+		preTime.setText(str1);
+		preTime1.setText(str2);
 	}
 }

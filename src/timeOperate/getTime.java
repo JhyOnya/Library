@@ -11,9 +11,9 @@ import excelOperate.readFile;
 import excelOperate.readFile;
 
 public class getTime {
-	private static String baseDate = "2019-04-29";
-	private static int weekNum = 1;
-	private static int dayOfWeek = 1;
+	private static String baseDate = "2019-03-04";
+	private static int weekNum = 11;
+	private static int dayOfWeek = 6;
 	private static String remainTime = null;
 	private static String[] timeList = new String[10];
 	private static String yMd, Hms;// 年月日，时分秒
@@ -202,7 +202,10 @@ public class getTime {
 		Date curTime = ft.parse(dateString);
 		return curTime;
 	}
-
+	public static int[] time() {
+		int[] weekandDay=new int[] {weekNum,dayOfWeek};
+		return weekandDay;
+	}
 	// 测试
 	public static void main(String[] args) throws ParseException {
 		initNameToClass();// 初始化<姓名，班级>
