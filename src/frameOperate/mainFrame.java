@@ -268,7 +268,7 @@ public class mainFrame extends JFrame
 		chsTime1.setText("2019Äê05ÔÂ18ÈÕ");
 		chsTime1.setColumns(10);
 		chsTime1.setBorder(null);
-		chsTime1.setBounds(82, 67, 86, 21);
+		chsTime1.setBounds(82, 67, 94, 21);
 		ser.register(chsTime1);
 		contentPane.add(chsTime1);
 
