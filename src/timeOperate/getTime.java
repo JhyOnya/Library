@@ -220,8 +220,8 @@ public class getTime {
 	public static void main(String[] args) throws ParseException {
 		initNameToClass();// 初始化<姓名，班级>
 		readFile.readFile(readFile.sourceFile);// 初始化表格数据
-		String askTime = "2019年05月07日 10:30:00";
-		String name = "va";
+		String askTime = "2019年05月17日 15:06:19";
+		String name = "王源";
 		System.out.println(calRemainTime(name, askTime));
 
 	}
