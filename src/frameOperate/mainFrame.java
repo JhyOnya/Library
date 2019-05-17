@@ -266,7 +266,7 @@ public class mainFrame extends JFrame
 		frameCalendar ser = frameCalendar.getInstance();
 		chsTime1 = new JTextField();
 		chsTime1.setBackground(new Color(220, 220, 255));
-		chsTime1.setText("2019年05月18日");
+		chsTime1.setText("2019年05月16日");
 		chsTime1.setColumns(10);
 		chsTime1.setBorder(null);
 		chsTime1.setBounds(82, 67, 94, 21);
@@ -342,7 +342,7 @@ public class mainFrame extends JFrame
 		contentPane.add(preTime1);
 
 		chsTime2 = new JTextField();
-		chsTime2.setText("13:00:00");
+		chsTime2.setText("14:00:00");
 		chsTime2.setColumns(10);
 		chsTime2.setBorder(null);
 		chsTime2.setBackground(new Color(220, 220, 255));
