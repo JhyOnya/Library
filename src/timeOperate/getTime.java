@@ -168,7 +168,7 @@ public class getTime {
 			Date askT = ft.parse(Hms);
 			if (timeList[0] != null && askT.before(ft.parse(timeList[0]))) {
 				return "0";
-			} else if (timeList[9] != null && ft.parse(timeList[0]).before(askT)) {
+			} else if (timeList[9] != null && ft.parse(timeList[9]).before(askT)) {
 				return "0";
 			} else {
 
