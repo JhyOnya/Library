@@ -67,7 +67,7 @@ public class msgChange {
 	}
 
 	public static void refresh() {
-		String opTime=preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText();
+		String opTime=preOrChs ? mainFrame.preTime.getText() : (mainFrame.chsTime1.getText()+" "+mainFrame.chsTime2.getText());
 		if(opTime.length()==0)
 			return;
 		
@@ -86,9 +86,8 @@ public class msgChange {
 			while (entries.hasNext()) {
 				Map.Entry<Integer, String> entry = entries.next();
 //				((JButton) mainFrame.panel.getComponent(entry.getValue())).setEnabled(false);
-				String time = preOrChs ? mainFrame.preTime.getText() : mainFrame.chsTime.getText();
 				String freshTime;
-				freshTime = Seat.getSeatTime(entry.getValue(), time);
+				freshTime = Seat.getSeatTime(entry.getValue(), opTime);
 				((JButton) mainFrame.panel.getComponent(entry.getKey()))
 						.setText(entry.getKey() + 1 + ".剩余时间：" + freshTime);
 

@@ -40,8 +40,10 @@ import javax.swing.JTable;
 import java.awt.GridLayout;
 import javax.swing.JRadioButton;
 import javax.swing.DropMode;
+import javax.swing.JSpinner;
 
-public class mainFrame extends JFrame {
+public class mainFrame extends JFrame
+{
 
 	private int x, y;
 	static String[] rooms;
@@ -61,28 +63,36 @@ public class mainFrame extends JFrame {
 	static JButton loginBt;
 	static JTextField textMsg;
 	static JPanel panel;
-	static JTextField chsTime;
 	private JButton chsBtn;
 	private static JTextField preTime1;
+	static JTextField chsTime2;
+	public static JTextField chsTime1;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
 					mframe = new mainFrame();
 					mframe.setUndecorated(true);// 去除边框
 					mframe.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
 		});
 	}
 
-	public mainFrame() {
+	public mainFrame()
+	{
 		rooms = Seat.rooms;
 		imgDir = imgDir + "\\picUI\\";
-		this.setSize(865, 626);
+		this.setSize(900, 626);
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension framesize = this.getSize();
 		int fx = (int) screensize.getWidth() / 2 - (int) framesize.getWidth() / 2;
@@ -103,25 +113,30 @@ public class mainFrame extends JFrame {
 		preTime.setBounds(82, 36, 148, 21);
 		contentPane.add(preTime);
 		chooseRoom = new JComboBox(rooms);
-		chooseRoom.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
+		chooseRoom.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent e)
+			{
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{
 					msgChange.refresh();
 				}
 			}
 		});
-		chooseRoom.setBounds(725, 37, 86, 21);
+		chooseRoom.setBounds(767, 36, 97, 21);
 		contentPane.add(chooseRoom);
 
 		nameText = new JTextField();
-		nameText.addFocusListener(new FocusAdapter() {
+		nameText.addFocusListener(new FocusAdapter()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e)
+			{
 				if (nameText.getText().equals("请输入姓名进行登录！"))
 					nameText.setText("");
 			}
 		});
-		nameText.setBounds(354, 36, 181, 21);
+		nameText.setBounds(364, 36, 181, 21);
 		contentPane.add(nameText);
 		nameText.setColumns(10);
 
@@ -131,7 +146,7 @@ public class mainFrame extends JFrame {
 		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBorder(null);
-		textField.setBounds(314, 36, 66, 21);
+		textField.setBounds(321, 36, 66, 21);
 		contentPane.add(textField);
 
 		textField_1 = new JTextField();
@@ -140,12 +155,12 @@ public class mainFrame extends JFrame {
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		textField_1.setBorder(null);
-		textField_1.setBounds(668, 37, 66, 21);
+		textField_1.setBounds(691, 36, 66, 21);
 		contentPane.add(textField_1);
 
 		panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(10, 106, 834, 471);
+		panel.setBounds(0, 106, 864, 464);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(6, 5, 13, 13));
 
@@ -163,14 +178,18 @@ public class mainFrame extends JFrame {
 		iconY.setImage(iconY.getImage().getScaledInstance(buttonY.getBounds().width, buttonY.getBounds().height,
 				Image.SCALE_SMOOTH));
 		buttonY.setIcon(iconY);
-		buttonY.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
+		buttonY.addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
 				x = e.getX();
 				y = e.getY();
 			}
 		});
-		buttonY.addMouseMotionListener(new MouseMotionAdapter() {
-			public void mouseDragged(MouseEvent e) {
+		buttonY.addMouseMotionListener(new MouseMotionAdapter()
+		{
+			public void mouseDragged(MouseEvent e)
+			{
 				int left = mframe.getLocation().x;
 				int top = mframe.getLocation().y;
 				mframe.setLocation(left + e.getX() - x, top + e.getY() - y);
@@ -184,8 +203,10 @@ public class mainFrame extends JFrame {
 		iconR.setImage(iconR.getImage().getScaledInstance(buttonR.getBounds().width, buttonR.getBounds().height,
 				Image.SCALE_SMOOTH));
 		buttonR.setIcon(iconR);
-		buttonR.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		buttonR.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				System.exit(0);
 			}
 		});
@@ -202,9 +223,12 @@ public class mainFrame extends JFrame {
 
 		JRadioButton preTimeRBt = new JRadioButton("\u5F53\u524D\u65F6\u95F4");
 		preTimeRBt.setSelected(true);
-		preTimeRBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (preTimeRBt.isSelected()) {
+		preTimeRBt.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (preTimeRBt.isSelected())
+				{
 					textMsg.setText("请选择座位！");
 					chsBtn.setEnabled(false);
 					msgChange.preOrChs = true;
@@ -217,9 +241,12 @@ public class mainFrame extends JFrame {
 		contentPane.add(preTimeRBt);
 
 		JRadioButton chsTimeRBt = new JRadioButton("\u9009\u5B9A\u65F6\u95F4");
-		chsTimeRBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (chsTimeRBt.isSelected()) {
+		chsTimeRBt.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (chsTimeRBt.isSelected())
+				{
 					textMsg.setText("仅能查看指定时间，禁止提前占座！");
 					chsBtn.setEnabled(true);
 					msgChange.preOrChs = false;
@@ -235,25 +262,30 @@ public class mainFrame extends JFrame {
 		sexGroup.add(preTimeRBt);
 		sexGroup.add(chsTimeRBt);
 
-		chsTime = new JTextField();
-		chsTime.setBackground(new Color(220, 220, 255));
-		chsTime.setText("2019\u5E7404\u670825\u65E5 10:31:28");
-		chsTime.setColumns(10);
-		chsTime.setBorder(null);
-		chsTime.setBounds(82, 67, 148, 21);
-		contentPane.add(chsTime);
+		frameCalendar ser = frameCalendar.getInstance();
+		chsTime1 = new JTextField();
+		chsTime1.setBackground(new Color(220, 220, 255));
+		chsTime1.setText("2019年05月18日");
+		chsTime1.setColumns(10);
+		chsTime1.setBorder(null);
+		chsTime1.setBounds(82, 67, 86, 21);
+		ser.register(chsTime1);
+		contentPane.add(chsTime1);
 
 		chsBtn = new JButton("\u67E5\u8BE2");
 		chsBtn.setEnabled(false);
-		chsBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		chsBtn.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				msgChange.refresh();
 			}
 		});
 		chsBtn.setBounds(236, 67, 66, 23);
 		contentPane.add(chsBtn);
 
-		for (int i = 0; i < Seat.seatNum; i++) {
+		for (int i = 0; i < Seat.seatNum; i++)
+		{
 			JButton seatBts = new JButton(i + 1 + "");
 			ImageIcon iconSeat = new ImageIcon(imgDir + "buttonSeat.png");
 			iconSeat.setImage(iconSeat.getImage().getScaledInstance(160, 70, Image.SCALE_DEFAULT));
@@ -261,31 +293,41 @@ public class mainFrame extends JFrame {
 			seatBts.setIcon(iconSeat);
 			seatBts.setContentAreaFilled(false);
 			seatBts.setBorderPainted(false);
-			seatBts.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+			seatBts.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
 					String btnName = ((JButton) e.getSource()).getText();
 					if (btnName.indexOf(".") != -1)
 						btnName = btnName.substring(0, btnName.indexOf("."));
 					int chsBtnNum = Integer.parseInt(btnName) - 1;
 					msgChange.chooseSeat(chooseRoom.getSelectedIndex(), chsBtnNum, nameText.getText());
-//					int chsBtnNum = msgChange.searchComponentByName(panel, ((JButton) e.getSource()).getText());
-//					msgChange.chooseSeat(chooseRoom.getSelectedIndex(), chsBtnNum, nameText.getText());
+					// int chsBtnNum = msgChange.searchComponentByName(panel,
+					// ((JButton) e.getSource()).getText());
+					// msgChange.chooseSeat(chooseRoom.getSelectedIndex(),
+					// chsBtnNum, nameText.getText());
 				}
 			});
 			panel.add(seatBts);
 		}
 
 		loginBt = new JButton();
-		loginBt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		loginBt.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				int[] stuMsg;
 				if (nameText.getText().isEmpty() || nameText.getText().equals("请输入姓名进行登录！"))
 					nameText.setText("请输入姓名进行登录！");
-				else {
+				else
+				{
 					stuMsg = Seat.isVIP(nameText.getText());
-					if (stuMsg[0] == -1) {
+					if (stuMsg[0] == -1)
+					{
 						msgChange.login();
-					} else {
+					}
+					else
+					{
 						// vip，指定座位
 						msgChange.chooseSeat(stuMsg[0], stuMsg[1], "尊敬的VIP用户 " + nameText.getText());
 					}
@@ -300,7 +342,7 @@ public class mainFrame extends JFrame {
 		loginBt.setContentAreaFilled(false);
 		loginBt.setBorderPainted(false);
 		contentPane.add(loginBt);
-		
+
 		preTime1 = new JTextField();
 		preTime1.setOpaque(false);
 		preTime1.setEditable(false);
@@ -309,11 +351,20 @@ public class mainFrame extends JFrame {
 		preTime1.setBounds(354, 10, 181, 21);
 		contentPane.add(preTime1);
 
+		chsTime2 = new JTextField();
+		chsTime2.setText("13:00:00");
+		chsTime2.setColumns(10);
+		chsTime2.setBorder(null);
+		chsTime2.setBackground(new Color(220, 220, 255));
+		chsTime2.setBounds(178, 67, 49, 21);
+		contentPane.add(chsTime2);
+
 		Seat.init();
 		new Thread(new preTime()).start();
 	}
 
-	public static void refreshTime(String str1,String str2) {
+	public static void refreshTime(String str1, String str2)
+	{
 		preTime.setText(str1);
 		preTime1.setText(str2);
 	}

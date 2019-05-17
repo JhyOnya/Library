@@ -38,6 +38,7 @@ public class preTime implements Runnable {
 		String weekDay0 = "今天是：第" + weekAndDay[0] + "周 周" + day + " " ;
 		while (true) {
 			String date = dtFmt.format(new Date());
+			System.out.println(date);
 			String weekDay =weekDay0+date.substring(date.lastIndexOf(" "));
 			mainFrame.refreshTime(date, weekDay);
 			msgChange.refresh();

@@ -13,8 +13,8 @@ import timeOperate.getTime;
 
 public class Seat {
 	// 教室和座位从0开始，显示从1开始，UI方进行更正即可；教室数量目前设为5；座位数量目前设为5
-	public static int roomNum = 5;// 教室数量
-	public static String[] rooms = { "101", "102", "201", "202", "301" };
+	public static int roomNum = 8;// 教室数量
+	public static String[] rooms = { "一楼101", "一楼102", "二楼201", "二楼202", "三楼301","三楼阅览室","三楼科研馆","四楼阅览室" };
 	public static int seatNum = 30;// 座位数量
 	public static Map<String, int[]> vipNames;// vip列表
 	public static Map<Integer, Map<Integer, String>> vipUsingSeats;// <1,<3,lih>>,教室1座位3是lih正在使用的vip座位
