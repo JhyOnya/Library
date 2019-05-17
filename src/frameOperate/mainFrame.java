@@ -63,7 +63,6 @@ public class mainFrame extends JFrame
 	static JButton loginBt;
 	static JTextField textMsg;
 	static JPanel panel;
-	private JButton chsBtn;
 	private static JTextField preTime1;
 	static JTextField chsTime2;
 	public static JTextField chsTime1;
@@ -230,7 +229,8 @@ public class mainFrame extends JFrame
 				if (preTimeRBt.isSelected())
 				{
 					textMsg.setText("请选择座位！");
-					chsBtn.setEnabled(false);
+					chsTime1.setEnabled(false);
+					chsTime2.setEnabled(false);
 					msgChange.preOrChs = true;
 					msgChange.refresh();
 				}
@@ -248,7 +248,8 @@ public class mainFrame extends JFrame
 				if (chsTimeRBt.isSelected())
 				{
 					textMsg.setText("仅能查看指定时间，禁止提前占座！");
-					chsBtn.setEnabled(true);
+					chsTime1.setEnabled(true);
+					chsTime2.setEnabled(true);
 					msgChange.preOrChs = false;
 					msgChange.refresh();
 				}
@@ -269,20 +270,9 @@ public class mainFrame extends JFrame
 		chsTime1.setColumns(10);
 		chsTime1.setBorder(null);
 		chsTime1.setBounds(82, 67, 94, 21);
+		chsTime1.setEnabled(false);
 		ser.register(chsTime1);
 		contentPane.add(chsTime1);
-
-		chsBtn = new JButton("\u67E5\u8BE2");
-		chsBtn.setEnabled(false);
-		chsBtn.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				msgChange.refresh();
-			}
-		});
-		chsBtn.setBounds(236, 67, 66, 23);
-		contentPane.add(chsBtn);
 
 		for (int i = 0; i < Seat.seatNum; i++)
 		{
@@ -357,6 +347,7 @@ public class mainFrame extends JFrame
 		chsTime2.setBorder(null);
 		chsTime2.setBackground(new Color(220, 220, 255));
 		chsTime2.setBounds(178, 67, 49, 21);
+		chsTime2.setEnabled(false);
 		contentPane.add(chsTime2);
 
 		Seat.init();
