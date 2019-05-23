@@ -43,12 +43,13 @@ public class frameHello extends JFrame {
 		Thread timeController = new Thread() {
 			public void run() {
 				try {
-					Thread.sleep(3000); // 限制运行时间
-					hello.dispose();
+					Thread.sleep(2500); // 限制运行时间
 
 					mainFrame.mframe = new mainFrame();
 					mainFrame.mframe.setUndecorated(true);// 去除边框
 					mainFrame.mframe.setVisible(true);
+					Thread.sleep(500); // 限制运行时间
+					hello.dispose();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
